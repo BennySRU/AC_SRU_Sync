@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AC_SRU_Sync.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ftpPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">race.hoferr.ch</Value>
+    </Setting>
+    <Setting Name="localPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Games\SteamLibrary\steamapps\common\assettocorsa\acs.exe</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
