@@ -54,6 +54,7 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Net.FtpClient">
       <HintPath>..\_Lib\System.Net.FtpClient.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
