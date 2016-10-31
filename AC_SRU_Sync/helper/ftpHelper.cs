@@ -57,15 +57,20 @@ namespace AC_SRU_Sync
                 return false;
             }
         }
-        public void FillListItems( FTPDirectory dirToAdd,string subfolder = "")
+        public void FillListItems( FTPDirectory dirToAdd,string subfolder = "",int deep=100)
         {
             List<FtpListItem> lstItems = getFTPClient().GetListing(subfolder).ToList();
             foreach (FtpListItem ftpli in lstItems)
             {
                 if (ftpli.Type == FtpFileSystemObjectType.Directory)
                 {
-                    FTPDirectory newDir = new FTPDirectory(ftpli.Name, ftpli.FullName);
-                    FillListItems(newDir, newDir._fullpath);
+                    FTPDirectory newDir = new FTPDirectory(ftpli.Name, ftpli.FullName,dirToAdd);
+                    if (deep > 0)
+                    {
+                        deep--;
+                        FillListItems(newDir, newDir._fullpath,deep);
+
+                    }
                     dirToAdd.subDirectories.Add(newDir);
                 }
                 else
@@ -75,7 +80,7 @@ namespace AC_SRU_Sync
             }
             
         }
-        public FTPDirectory GetFTPHoleTree(string path, string username = "", string password = "")
+        public FTPDirectory GetFTPHoleTree(string path, string username = "", string password = "", int deep=100)
         {
             FTPDirectory root = new FTPDirectory();
             root._name = path;
@@ -93,7 +98,7 @@ namespace AC_SRU_Sync
                 return null;
             }
             //Root Elemente befüllen
-            FillListItems(root);
+            FillListItems(root,"",deep);
             return root;
         }
     }

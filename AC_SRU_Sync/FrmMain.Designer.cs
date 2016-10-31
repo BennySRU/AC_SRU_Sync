@@ -38,8 +38,8 @@
             this.btnCheck = new System.Windows.Forms.Button();
             this.btnSync = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.pgb1 = new System.Windows.Forms.ProgressBar();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.pgbar = new System.Windows.Forms.ProgressBar();
             this.txtStatus = new System.Windows.Forms.TextBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -47,20 +47,20 @@
             // lblExe
             // 
             this.lblExe.AutoSize = true;
-            this.lblExe.Location = new System.Drawing.Point(7, 249);
+            this.lblExe.Location = new System.Drawing.Point(7, 176);
             this.lblExe.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblExe.Name = "lblExe";
-            this.lblExe.Size = new System.Drawing.Size(125, 20);
+            this.lblExe.Size = new System.Drawing.Size(105, 17);
             this.lblExe.TabIndex = 0;
             this.lblExe.Text = "Path to AC.exe:";
             // 
             // lblFTP
             // 
             this.lblFTP.AutoSize = true;
-            this.lblFTP.Location = new System.Drawing.Point(19, 221);
+            this.lblFTP.Location = new System.Drawing.Point(19, 148);
             this.lblFTP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFTP.Name = "lblFTP";
-            this.lblFTP.Size = new System.Drawing.Size(84, 20);
+            this.lblFTP.Size = new System.Drawing.Size(71, 17);
             this.lblFTP.TabIndex = 1;
             this.lblFTP.Text = "FTP Path:";
             // 
@@ -72,29 +72,29 @@
             this.label1.Location = new System.Drawing.Point(11, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(762, 196);
+            this.label1.Size = new System.Drawing.Size(762, 133);
             this.label1.TabIndex = 2;
             this.label1.Text = "ASSETTO CORSA SYNC CENTER ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // txtFTP
             // 
-            this.txtFTP.Location = new System.Drawing.Point(115, 218);
+            this.txtFTP.Location = new System.Drawing.Point(115, 145);
             this.txtFTP.Name = "txtFTP";
-            this.txtFTP.Size = new System.Drawing.Size(568, 26);
+            this.txtFTP.Size = new System.Drawing.Size(568, 23);
             this.txtFTP.TabIndex = 3;
             // 
             // txtACEXE
             // 
-            this.txtACEXE.Location = new System.Drawing.Point(115, 246);
+            this.txtACEXE.Location = new System.Drawing.Point(115, 173);
             this.txtACEXE.Name = "txtACEXE";
-            this.txtACEXE.Size = new System.Drawing.Size(568, 26);
+            this.txtACEXE.Size = new System.Drawing.Size(568, 23);
             this.txtACEXE.TabIndex = 4;
             // 
             // button1
             // 
             this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(689, 218);
+            this.button1.Location = new System.Drawing.Point(689, 145);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(51, 23);
             this.button1.TabIndex = 5;
@@ -104,7 +104,7 @@
             // button2
             // 
             this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.Location = new System.Drawing.Point(689, 246);
+            this.button2.Location = new System.Drawing.Point(689, 173);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(51, 23);
             this.button2.TabIndex = 6;
@@ -114,7 +114,7 @@
             // btnCheck
             // 
             this.btnCheck.ForeColor = System.Drawing.Color.Black;
-            this.btnCheck.Location = new System.Drawing.Point(115, 275);
+            this.btnCheck.Location = new System.Drawing.Point(115, 202);
             this.btnCheck.Name = "btnCheck";
             this.btnCheck.Size = new System.Drawing.Size(188, 35);
             this.btnCheck.TabIndex = 7;
@@ -125,7 +125,7 @@
             // btnSync
             // 
             this.btnSync.ForeColor = System.Drawing.Color.Black;
-            this.btnSync.Location = new System.Drawing.Point(306, 275);
+            this.btnSync.Location = new System.Drawing.Point(306, 202);
             this.btnSync.Name = "btnSync";
             this.btnSync.Size = new System.Drawing.Size(188, 35);
             this.btnSync.TabIndex = 8;
@@ -135,35 +135,35 @@
             // btnStart
             // 
             this.btnStart.ForeColor = System.Drawing.Color.Black;
-            this.btnStart.Location = new System.Drawing.Point(497, 275);
+            this.btnStart.Location = new System.Drawing.Point(497, 202);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(188, 35);
             this.btnStart.TabIndex = 9;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // lblStatus
             // 
-            this.label2.Location = new System.Drawing.Point(115, 343);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(568, 23);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "label2";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblStatus.Location = new System.Drawing.Point(115, 270);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(568, 23);
+            this.lblStatus.TabIndex = 10;
+            this.lblStatus.Text = "...";
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pgb1
+            // pgbar
             // 
-            this.pgb1.Location = new System.Drawing.Point(115, 317);
-            this.pgb1.Name = "pgb1";
-            this.pgb1.Size = new System.Drawing.Size(568, 23);
-            this.pgb1.TabIndex = 11;
+            this.pgbar.Location = new System.Drawing.Point(115, 244);
+            this.pgbar.Name = "pgbar";
+            this.pgbar.Size = new System.Drawing.Size(568, 23);
+            this.pgbar.TabIndex = 11;
             // 
             // txtStatus
             // 
-            this.txtStatus.Location = new System.Drawing.Point(114, 366);
+            this.txtStatus.Location = new System.Drawing.Point(114, 293);
             this.txtStatus.Multiline = true;
             this.txtStatus.Name = "txtStatus";
-            this.txtStatus.Size = new System.Drawing.Size(568, 126);
+            this.txtStatus.Size = new System.Drawing.Size(568, 219);
             this.txtStatus.TabIndex = 12;
             // 
             // btnClose
@@ -179,14 +179,14 @@
             // 
             // FrmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(780, 524);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.txtStatus);
-            this.Controls.Add(this.pgb1);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.pgbar);
+            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.btnSync);
             this.Controls.Add(this.btnCheck);
@@ -220,8 +220,8 @@
         private System.Windows.Forms.Button btnCheck;
         private System.Windows.Forms.Button btnSync;
         private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ProgressBar pgb1;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.ProgressBar pgbar;
         private System.Windows.Forms.TextBox txtStatus;
         private System.Windows.Forms.Button btnClose;
     }

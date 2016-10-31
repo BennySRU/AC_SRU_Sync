@@ -75,8 +75,8 @@
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="domain\MainDirectory.cs" />
-    <Compile Include="helper\acHelper.cs" />
-    <Compile Include="helper\ftpHelper.cs" />
+    <Compile Include="helper\ACHelper.cs" />
+    <Compile Include="helper\FTPHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmMain.resx">
@@ -103,7 +103,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\SRU.jpg" />

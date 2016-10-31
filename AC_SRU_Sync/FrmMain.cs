@@ -80,20 +80,32 @@ namespace AC_SRU_Sync
         private void btnCheck_Click(object sender, EventArgs e)
         {
             DateTime start = DateTime.Now;
-            txtStatus.Text += "Time:" + start.ToLongTimeString() + "\n\n";
-            if (CheckFTPServerNeu(txtFTP.Text)==false)
+            txtStatus.Text = "Time started: " + start.ToLongTimeString() + Environment.NewLine + Environment.NewLine;
+            if (CheckFTPServerNeu(txtFTP.Text) == false)
             {
                 return;
             }
-            txtStatus.Text += "Elapsed:" + (DateTime.Now-start).Milliseconds + "ms\n\n";
+            txtStatus.Text += "Successfull FTP Connection! Tree loaded with deep of 7 levels. Elapsed: " + (DateTime.Now - start).TotalSeconds.ToString("0.00") + " s" + Environment.NewLine + Environment.NewLine;
 
-            if (CheckForContentFolders())
+            if (CheckForContentFolders() == false)
             {
                 return;
             }
-            txtStatus.Text += "Found Contentfolders: " + mainDirectories.Count + "\n"; 
-            txtStatus.Text += "Elapsed:" + (DateTime.Now - start).Milliseconds + "ms\n\n";
-                
+            txtStatus.Text += "Found Contentfolders: " + mainDirectories.Count + Environment.NewLine;
+            txtStatus.Text += "Elapsed:" + (DateTime.Now - start).TotalSeconds.ToString("0.00") + "s" + Environment.NewLine + Environment.NewLine;
+
+            //Check AC Exe
+            if (ACHelper.CheckLocalExeAndContentFolder(txtACEXE.Text) == false)
+            {
+                txtStatus.Text += "AC.exe or content folder not found! Check Path to Exe.";
+                return;
+            }
+            txtStatus.Text += "Compare folders in FileSystem" + Environment.NewLine;
+            foreach (MainDirectory mainDir in mainDirectories) {
+                mainDir.ftpDirsToSync = ACHelper.CheckLocalFolder(txtACEXE.Text, mainDir); 
+                txtStatus.Text += "Subfolder " + mainDir.InfoString() + Environment.NewLine;
+            }
+
 
         }
 
@@ -106,7 +118,7 @@ namespace AC_SRU_Sync
                     return false;
                 }
                 //Hier eventuell ohne user / Passwort
-                rootDir = GetFTPHelper().GetFTPHoleTree(txtFTP.Text);
+                rootDir = GetFTPHelper().GetFTPHoleTree(txtFTP.Text, "","", 7);
                 return true;
             }
             catch (Exception ex)
