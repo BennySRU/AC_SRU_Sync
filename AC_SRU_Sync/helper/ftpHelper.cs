@@ -98,8 +98,57 @@ namespace AC_SRU_Sync
                 return null;
             }
             //Root Elemente befüllen
-            FillListItems(root,"",deep);
+            FillListItems(root, "",deep);
             return root;
+        }
+        public void DownloadFolder(FTPDirectory toSync)
+        {
+            FillListItems(toSync, toSync._fullpath);
+            //Verzeichnis erstellen
+            if (!Directory.Exists(toSync._localPath))
+            {
+                Directory.CreateDirectory(toSync._localPath);
+                CreateAllFilesAndFolders(toSync);
+            }
+        }
+        private void CreateAllFilesAndFolders(FTPDirectory ftpDir)
+        {
+            foreach (FTPDirectory dir in ftpDir.subDirectories)
+            {
+                dir._localPath = Path.Combine(ftpDir._localPath, dir._name);
+
+                if (!Directory.Exists(dir._localPath))
+                {
+                    Directory.CreateDirectory(dir._localPath);
+                    CreateAllFilesAndFolders(dir);
+                }
+            }
+            foreach(FTPFile file in ftpDir.lstFiles)
+            {
+                try {
+                    string destPath = Path.Combine(ftpDir._localPath, file.ftpListItem.Name);
+                    using (var ftpStream = getFTPClient().OpenRead(file.ftpListItem.FullName))
+                        if ((int)ftpStream.Length == 0)
+                        {
+                            System.IO.File.WriteAllLines(destPath, new string[0]);
+                        }
+                        else {
+                            using (var fileStream = File.Create(destPath, (int)ftpStream.Length))
+                            {
+                                var buffer = new byte[8 * 1024];
+                                int count;
+                                while ((count = ftpStream.Read(buffer, 0, buffer.Length)) > 0)
+                                {
+                                    fileStream.Write(buffer, 0, count);
+                                }
+                            }
+                        }
+                }
+                catch(Exception ex)
+                {
+
+                }
+            }
         }
     }
     public class FTPFile

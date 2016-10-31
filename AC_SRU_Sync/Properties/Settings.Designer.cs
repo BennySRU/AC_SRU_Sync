@@ -37,13 +37,49 @@ namespace AC_SRU_Sync.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\Games\\SteamLibrary\\steamapps\\common\\assettocorsa\\acs.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string localPath {
             get {
                 return ((string)(this["localPath"]));
             }
             set {
                 this["localPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ftpUser {
+            get {
+                return ((string)(this["ftpUser"]));
+            }
+            set {
+                this["ftpUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ftpPassword {
+            get {
+                return ((string)(this["ftpPassword"]));
+            }
+            set {
+                this["ftpPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int deep {
+            get {
+                return ((int)(this["deep"]));
+            }
+            set {
+                this["deep"] = value;
             }
         }
     }

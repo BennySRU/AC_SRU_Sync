@@ -6,7 +6,16 @@
       <Value Profile="(Default)">race.hoferr.ch</Value>
     </Setting>
     <Setting Name="localPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D:\Games\SteamLibrary\steamapps\common\assettocorsa\acs.exe</Value>
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ftpUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ftpPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="deep" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

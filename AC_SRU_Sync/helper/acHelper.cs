@@ -47,6 +47,7 @@ namespace AC_SRU_Sync
                         if (Directory.Exists(path)==false)
                         {
                             dirDeep3.toAdd = true;
+                            dirDeep3._localPath = path;
                             directoriesToSync.Add(dirDeep3);
                         }
                         else
@@ -54,6 +55,7 @@ namespace AC_SRU_Sync
                             if (hasDiff(path, dirDeep3))
                             {
                                 dirDeep3.toAdd = false;
+                                dirDeep3._localPath = path;
                                 directoriesToSync.Add(dirDeep3);
                             }
                         }

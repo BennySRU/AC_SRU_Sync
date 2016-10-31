@@ -28,13 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblExe = new System.Windows.Forms.Label();
             this.lblFTP = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtFTP = new System.Windows.Forms.TextBox();
             this.txtACEXE = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.btnCheck = new System.Windows.Forms.Button();
             this.btnSync = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
@@ -42,6 +41,11 @@
             this.pgbar = new System.Windows.Forms.ProgressBar();
             this.txtStatus = new System.Windows.Forms.TextBox();
             this.btnClose = new System.Windows.Forms.Button();
+            this.txtFtpUser = new System.Windows.Forms.TextBox();
+            this.txtFtpPassword = new System.Windows.Forms.TextBox();
+            this.tooly = new System.Windows.Forms.ToolTip(this.components);
+            this.cmbDeep = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbDeep)).BeginInit();
             this.SuspendLayout();
             // 
             // lblExe
@@ -57,7 +61,7 @@
             // lblFTP
             // 
             this.lblFTP.AutoSize = true;
-            this.lblFTP.Location = new System.Drawing.Point(19, 148);
+            this.lblFTP.Location = new System.Drawing.Point(37, 148);
             this.lblFTP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFTP.Name = "lblFTP";
             this.lblFTP.Size = new System.Drawing.Size(71, 17);
@@ -81,8 +85,9 @@
             // 
             this.txtFTP.Location = new System.Drawing.Point(115, 145);
             this.txtFTP.Name = "txtFTP";
-            this.txtFTP.Size = new System.Drawing.Size(568, 23);
+            this.txtFTP.Size = new System.Drawing.Size(187, 23);
             this.txtFTP.TabIndex = 3;
+            this.tooly.SetToolTip(this.txtFTP, "Path to ftp server without ftp://");
             // 
             // txtACEXE
             // 
@@ -90,26 +95,6 @@
             this.txtACEXE.Name = "txtACEXE";
             this.txtACEXE.Size = new System.Drawing.Size(568, 23);
             this.txtACEXE.TabIndex = 4;
-            // 
-            // button1
-            // 
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(689, 145);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(51, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "...";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.Location = new System.Drawing.Point(689, 173);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(51, 23);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "...";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // btnCheck
             // 
@@ -131,6 +116,7 @@
             this.btnSync.TabIndex = 8;
             this.btnSync.Text = "Sync";
             this.btnSync.UseVisualStyleBackColor = true;
+            this.btnSync.Click += new System.EventHandler(this.btnSync_Click);
             // 
             // btnStart
             // 
@@ -141,6 +127,7 @@
             this.btnStart.TabIndex = 9;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // lblStatus
             // 
@@ -163,6 +150,7 @@
             this.txtStatus.Location = new System.Drawing.Point(114, 293);
             this.txtStatus.Multiline = true;
             this.txtStatus.Name = "txtStatus";
+            this.txtStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtStatus.Size = new System.Drawing.Size(568, 219);
             this.txtStatus.TabIndex = 12;
             // 
@@ -177,12 +165,54 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // txtFtpUser
+            // 
+            this.txtFtpUser.Location = new System.Drawing.Point(306, 145);
+            this.txtFtpUser.Name = "txtFtpUser";
+            this.txtFtpUser.Size = new System.Drawing.Size(187, 23);
+            this.txtFtpUser.TabIndex = 14;
+            this.tooly.SetToolTip(this.txtFtpUser, "User to connect (if empty will take anonymous)");
+            // 
+            // txtFtpPassword
+            // 
+            this.txtFtpPassword.Location = new System.Drawing.Point(496, 145);
+            this.txtFtpPassword.Name = "txtFtpPassword";
+            this.txtFtpPassword.Size = new System.Drawing.Size(187, 23);
+            this.txtFtpPassword.TabIndex = 15;
+            this.tooly.SetToolTip(this.txtFtpPassword, "password for the user");
+            this.txtFtpPassword.UseSystemPasswordChar = true;
+            // 
+            // cmbDeep
+            // 
+            this.cmbDeep.Location = new System.Drawing.Point(690, 145);
+            this.cmbDeep.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.cmbDeep.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.cmbDeep.Name = "cmbDeep";
+            this.cmbDeep.Size = new System.Drawing.Size(39, 23);
+            this.cmbDeep.TabIndex = 16;
+            this.cmbDeep.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(780, 524);
+            this.Controls.Add(this.cmbDeep);
+            this.Controls.Add(this.txtFtpPassword);
+            this.Controls.Add(this.txtFtpUser);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.txtStatus);
             this.Controls.Add(this.pgbar);
@@ -190,8 +220,6 @@
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.btnSync);
             this.Controls.Add(this.btnCheck);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.txtACEXE);
             this.Controls.Add(this.txtFTP);
             this.Controls.Add(this.label1);
@@ -203,6 +231,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmMain";
             this.Text = "Asetto Corsa Simracing United Sync Center";
+            ((System.ComponentModel.ISupportInitialize)(this.cmbDeep)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,8 +244,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtFTP;
         private System.Windows.Forms.TextBox txtACEXE;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnCheck;
         private System.Windows.Forms.Button btnSync;
         private System.Windows.Forms.Button btnStart;
@@ -224,6 +251,10 @@
         private System.Windows.Forms.ProgressBar pgbar;
         private System.Windows.Forms.TextBox txtStatus;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.ToolTip tooly;
+        private System.Windows.Forms.TextBox txtFtpUser;
+        private System.Windows.Forms.TextBox txtFtpPassword;
+        private System.Windows.Forms.NumericUpDown cmbDeep;
     }
 }
 

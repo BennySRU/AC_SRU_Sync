@@ -77,6 +77,7 @@
     <Compile Include="domain\MainDirectory.cs" />
     <Compile Include="helper\ACHelper.cs" />
     <Compile Include="helper\FTPHelper.cs" />
+    <Compile Include="helper\SimpleAES.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmMain.resx">
