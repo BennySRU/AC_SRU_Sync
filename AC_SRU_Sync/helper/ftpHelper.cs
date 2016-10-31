@@ -10,158 +10,104 @@ using System.Threading.Tasks;
 
 namespace AC_SRU_Sync
 {
-    public static class ftpHelper
+    public class FTPHelper
     {
-
-        public static List<string> GetAllFoldersFTP(string ftpServer)
+        private string rootPath = "";
+        private string _username = "";
+        private string _password = "";
+        private FtpClient _ftpClient;
+        public FTPHelper(string pathToFTP, string username = "", string password = "")
         {
-            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(getUri(ftpServer));
-            ftpRequest.Credentials = new NetworkCredential("anonymous", "janeDoe@contoso.com");
-            ftpRequest.Method = WebRequestMethods.Ftp.ListDirectory;
-            FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
-            StreamReader streamReader = new StreamReader(response.GetResponseStream());
-
-            List<string> directories = new List<string>();
-
-            string line = streamReader.ReadLine();
-            while (!string.IsNullOrEmpty(line))
-            {
-                if (!line.Contains("."))
-                {
-                    directories.Add(line);
-                }
-                line = streamReader.ReadLine();
-            }
-
-            streamReader.Close();
-            return directories;
+            rootPath = pathToFTP;
+            _username = username;
+            _password = password;
+            if (_username.Equals("")) _username = "anonymous";
         }
-        private static Uri getUri(String ftp)
+        private String getFTPUri(String ftp)
         {
             if (!ftp.StartsWith("ftp://"))
             {
                 ftp = "ftp://" + ftp;
             }
-            return new Uri(ftp);
+            return ftp;
         }
-        public static List<FtpListItem> GetListItems(string path,string subfolder, string _username = "anonymous", string _password = "") {
-            FtpClient ftpClient = new FtpClient();
-            ftpClient.Host = path;
-            if (_username.Equals("")) _username = "anonymous";
-            ftpClient.Credentials = new NetworkCredential(_username, _password);
-            ftpClient.Connect();
-            return ftpClient.GetListing(subfolder).ToList();
-        }
-
-        public static List<ftpinfo> getFTPTree(string path,string _username="",string _password="")
+        private FtpClient getFTPClient()
         {
-            FtpWebRequest request=(FtpWebRequest)FtpWebRequest.Create(getUri( path));
-            request.Method=WebRequestMethods.Ftp.ListDirectoryDetails;
-            List<ftpinfo> files=new List<ftpinfo>();
-
-        //request.Proxy = System.Net.WebProxy.GetDefaultProxy();
-        //request.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials;
-        request.Credentials = new NetworkCredential(_username, _password);
-        Stream rs = (Stream)request.GetResponse().GetResponseStream();
-            
-        StreamReader sr = new StreamReader(rs);
-        string strList = sr.ReadToEnd();
-        string[] lines = null;
-
-        if (strList.Contains("\r\n"))
-        {
-            lines=strList.Split(new string[] {"\r\n"},StringSplitOptions.None);
-        }
-        else if (strList.Contains("\n"))
-        {
-            lines=strList.Split(new string[] {"\n"},StringSplitOptions.None);
-        }
-
-        //now decode this string array
-
-        if (lines==null || lines.Length == 0)
-            return null;
-
-        foreach(string line in lines)
-        {
-            if (line.Length==0)
-                continue;
-                //parse line
-            string pattern = 
-                    @"^" +                          //# Start of line
-@"(?<dir>[\-ld])" +             //# File size          
-@"(?<permission>[\-rwx]{9})" +  //# Whitespace          \n
-@"\s+" +                        //# Whitespace          \n
-@"(?<filecode>\d+)" +
-@"\s+" +                        //# Whitespace          \n
-@"(?<owner>\w+)" +
-@"\s+" +                        //# Whitespace          \n
-@"(?<group>\w+)" +
-@"\s+" +                        //# Whitespace          \n
-@"(?<size>\d+)" +
-@"\s+" +                        //# Whitespace          \n
-@"(?<timestamp>\d{1,2}\s+\w+\s+\d{2}:\d{2})" +    //# Time or year        \n
-@"\s+" +                        //# Whitespace          \n
-@"(?<filename>(.*))" +          //# Filename            \n
-@"$";                           //# End of line
-                Regex regy = new Regex(pattern);
-            Match m = regy.Match(line);
-            if (m==null) {
-                //failed
-                throw new ApplicationException("Unable to parse line: " + line);
-            }
-            ftpinfo item = new ftpinfo();
-item.filename = m.Groups[0].Value.Trim('\r');
-            item.path = path;
-            item.size = Convert.ToInt64(m.Groups["size"].Value);
-            item.permission = m.Groups["permission"].Value;
-            string _dir = m.Groups["dir"].Value;
-            if(_dir.Length>0  && _dir != "-")
-            {
-                item.fileType = directoryEntryTypes.directory;
-            } 
-            else
-            {
-                item.fileType = directoryEntryTypes.file;
-            }
-
             try
             {
-                item.fileDateTime = DateTime.Parse(m.Groups["timestamp"].Value);
+                if (_ftpClient == null || _ftpClient.IsConnected == false)
+                {
+
+                    _ftpClient = new FtpClient();
+                    _ftpClient.Host = rootPath;
+                    _ftpClient.Credentials = new NetworkCredential(_username, _password);
+                    _ftpClient.Connect();
+                }
+            }
+            catch { }
+            return _ftpClient;
+        }
+        public Boolean CheckConnection() {
+            try
+            {
+                return getFTPClient().IsConnected;
             }
             catch
             {
-                item.fileDateTime = DateTime.MinValue; //null;
+                return false;
             }
-
-            files.Add(item);
         }
-
-        return files;
-        }
-    }
-    public enum directoryEntryTypes
-    {
-        directory,
-        file
-    }
-    public class ftpinfo
-    {
-        public string filename { get; set; }
-        public string path{ get; set; }
-        public Int64 size { get; set; }
-        public string permission  { get; set; }
-        public directoryEntryTypes fileType { get; set; }
-        public DateTime fileDateTime { get; set; }
-        private List<ftpinfo> subFtpInfos;
-        public List<ftpinfo> getSubdirectories(bool reload = false)
+        public void FillListItems( FTPDirectory dirToAdd,string subfolder = "")
         {
-            if (reload || subFtpInfos == null)
+            List<FtpListItem> lstItems = getFTPClient().GetListing(subfolder).ToList();
+            foreach (FtpListItem ftpli in lstItems)
             {
-                subFtpInfos = ftpHelper.getFTPTree(path);
+                if (ftpli.Type == FtpFileSystemObjectType.Directory)
+                {
+                    FTPDirectory newDir = new FTPDirectory(ftpli.Name, ftpli.FullName);
+                    FillListItems(newDir, newDir._fullpath);
+                    dirToAdd.subDirectories.Add(newDir);
+                }
+                else
+                {
+                    dirToAdd.lstFiles.Add(new FTPFile(ftpli,dirToAdd));
+                }
             }
-            return subFtpInfos; 
+            
+        }
+        public FTPDirectory GetFTPHoleTree(string path, string username = "", string password = "")
+        {
+            FTPDirectory root = new FTPDirectory();
+            root._name = path;
+            root._fullpath = path;
+            if (!path.Equals(rootPath) || getFTPClient().IsConnected == false)
+            {
+                rootPath = path;
+                _username = username;
+                _password = password;
+                if (_username.Equals("")) _username = "anonymous";
+                
+            }
+            if (getFTPClient().IsConnected == false)
+            {
+                return null;
+            }
+            //Root Elemente befüllen
+            FillListItems(root);
+            return root;
+        }
+    }
+    public class FTPFile
+    {
+        public FTPFile(FtpListItem file, FTPDirectory dir)
+        {
+            ftpListItem = file;
+            ftpDirectory = dir;
         }
 
+        public FtpListItem ftpListItem { get; set; }
+        public FTPDirectory ftpDirectory { get; set; }
+
     }
+
 }

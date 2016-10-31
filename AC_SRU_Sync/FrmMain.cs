@@ -15,6 +15,9 @@ namespace AC_SRU_Sync
 {
     public partial class FrmMain : Form
     {
+        //Variblen
+        private FTPHelper ftpHelper;
+
         public FrmMain()
         {
             InitializeComponent();
@@ -22,11 +25,20 @@ namespace AC_SRU_Sync
             txtACEXE.Text = AC_SRU_Sync.Properties.Settings.Default.localPath;
         }
 
+        public FTPHelper GetFTPHelper()
+        {
+            //Hier noch User und PW abfangen
+            if (ftpHelper == null)
+            {
+                ftpHelper = new FTPHelper(txtFTP.Text);
+            }
+            return ftpHelper;
+        }
         private void btnClose_Click(object sender, EventArgs e)
         {
             CloseApplication();
         }
-
+        #region Settings
         private void CloseApplication()
         {
 
@@ -61,31 +73,40 @@ namespace AC_SRU_Sync
                 return true;
             }
         }
+        #endregion
         #region CheckBeforeSync
+        FTPDirectory rootDir;
+        List<MainDirectory> mainDirectories;
         private void btnCheck_Click(object sender, EventArgs e)
         {
-            CheckFTPServerNeu(txtFTP.Text);
+            DateTime start = DateTime.Now;
+            txtStatus.Text += "Time:" + start.ToLongTimeString() + "\n\n";
+            if (CheckFTPServerNeu(txtFTP.Text)==false)
+            {
+                return;
+            }
+            txtStatus.Text += "Elapsed:" + (DateTime.Now-start).Milliseconds + "ms\n\n";
+
+            if (CheckForContentFolders())
+            {
+                return;
+            }
+            txtStatus.Text += "Found Contentfolders: " + mainDirectories.Count + "\n"; 
+            txtStatus.Text += "Elapsed:" + (DateTime.Now - start).Milliseconds + "ms\n\n";
+                
+
         }
 
-        private Boolean CheckFTPServer(string ftpServer)
+        private Boolean CheckFTPServerNeu(string ftpServer)
         {
             try
             {
-                List<ftpinfo> directories = ftpHelper.getFTPTree(ftpServer, "", "");
-                WriteLog("Files gefunden: " + directories.Count);
-                foreach (var mainDirectory in directories.Where(x => x.fileType == directoryEntryTypes.directory).ToList())
+                if (GetFTPHelper().CheckConnection()==false)
                 {
-                    List<ftpinfo> subList = mainDirectory.getSubdirectories();
-                    WriteLog(mainDirectory.filename + ": " + subList.Where(x => x.fileType == directoryEntryTypes.directory).Count() + " Ordner " + +subList.Where(x => x.fileType == directoryEntryTypes.file).Count() + " Files ");
-
-                    foreach (var subDirectory in subList.Where(x => x.fileType == directoryEntryTypes.directory).ToList())
-                    {
-                        List<ftpinfo> subSubList = subDirectory.getSubdirectories();
-                        WriteLog(subDirectory.filename + ": " + subSubList.Where(x => x.fileType == directoryEntryTypes.directory).Count() + " Ordner " + +subSubList.Where(x => x.fileType == directoryEntryTypes.file).Count() + " Files ");
-
-                    }
+                    return false;
                 }
-
+                //Hier eventuell ohne user / Passwort
+                rootDir = GetFTPHelper().GetFTPHoleTree(txtFTP.Text);
                 return true;
             }
             catch (Exception ex)
@@ -94,29 +115,15 @@ namespace AC_SRU_Sync
                 return false;
             }
         }
-        private Boolean CheckFTPServerNeu(string ftpServer)
+        private Boolean CheckForContentFolders()
         {
             try
             {
-                List<FtpListItem> directories = ftpHelper.GetListItems(ftpServer,"");
-                foreach (var mainDirectory in directories.Where(x => x.Type==FtpFileSystemObjectType.Directory ).ToList())
-                {
-                    List<FtpListItem> subList = ftpHelper.GetListItems(ftpServer,mainDirectory.FullName);
-                    WriteLog(mainDirectory.FullName + ": " + subList.Where(x => x.Type == FtpFileSystemObjectType.Directory).Count() + " Ordner " + +subList.Where(x => x.Type == FtpFileSystemObjectType.File).Count() + " Files ");
-
-                    foreach (var subDirectory in subList.Where(x => x.Type == FtpFileSystemObjectType.Directory).ToList())
-                    {
-                        List<FtpListItem> subSubList = ftpHelper.GetListItems(ftpServer,subDirectory.FullName);
-                        WriteLog(subDirectory.FullName +": " + subSubList.Where(x => x.Type == FtpFileSystemObjectType.Directory).Count() + " Ordner " + +subSubList.Where(x => x.Type == FtpFileSystemObjectType.File).Count() + " Files ");
-
-                    }
-                }
-
-                return true;
+                mainDirectories = ACHelper.checkFolderForMainFolders(rootDir);
+                return (mainDirectories.Count > 0);
             }
-            catch (Exception ex)
+            catch
             {
-                WriteLog(ex.Message);
                 return false;
             }
         }
