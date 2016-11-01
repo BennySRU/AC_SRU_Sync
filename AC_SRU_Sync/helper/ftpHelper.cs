@@ -7,6 +7,7 @@ using System.Net.FtpClient;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AC_SRU_Sync
 {
@@ -101,27 +102,36 @@ namespace AC_SRU_Sync
             FillListItems(root, "",root._deep+1,maxDeep);
             return root;
         }
-        public void DownloadFolder(FTPDirectory toSync)
+        public void DownloadFolder(FTPDirectory toSync, FrmMain frmMain)
         {
+            frmMain.SetProgress(1,2,"Der Baum des Ordners wird noch einmal ganz durchsucht!");
             FillListItems(toSync, toSync._fullpath, toSync._deep + 1);
             //Verzeichnis erstellen
             if (!Directory.Exists(toSync._localPath))
             {
                 Directory.CreateDirectory(toSync._localPath);
-                CreateAllFilesAndFolders(toSync);
             }
+            int anzObjekte = toSync.Descendants().Count();
+            anzObjekte += toSync.Descendants().Select(x => x.lstFiles.Count).Sum();
+            int curVal = anzObjekte;
+            int maxVal = anzObjekte * 2;
+            frmMain.SetProgress(2, 3, "Ordner und Files werden angelegt! Objekte:" + anzObjekte);
+            CreateAllFilesAndFolders(toSync,  frmMain,curVal,maxVal);
         }
-        private void CreateAllFilesAndFolders(FTPDirectory ftpDir)
+        private void CreateAllFilesAndFolders(FTPDirectory ftpDir, FrmMain frmMain, int curVal, int maxVal)
         {
             foreach (FTPDirectory dir in ftpDir.subDirectories)
             {
                 dir._localPath = Path.Combine(ftpDir._localPath, dir._name);
 
+                curVal++;
+                frmMain.SetProgress(curVal, maxVal, "Ordner " + dir._localPath + " wird angelegt!");
                 if (!Directory.Exists(dir._localPath))
                 {
+
                     Directory.CreateDirectory(dir._localPath);
-                    CreateAllFilesAndFolders(dir);
                 }
+                CreateAllFilesAndFolders(dir, frmMain,curVal,maxVal);
             }
             foreach(FTPFile file in ftpDir.lstFiles)
             {
@@ -148,6 +158,8 @@ namespace AC_SRU_Sync
                 {
 
                 }
+                curVal++;
+                frmMain.SetProgress(curVal, maxVal, "File " + file.ftpListItem.Name + " wird angelegt!");
             }
         }
     }

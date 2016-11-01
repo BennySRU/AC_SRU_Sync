@@ -43,68 +43,80 @@
             this.txtFtpPassword = new System.Windows.Forms.TextBox();
             this.tooly = new System.Windows.Forms.ToolTip(this.components);
             this.txtFTP = new System.Windows.Forms.TextBox();
-            this.cmbDeep = new System.Windows.Forms.NumericUpDown();
             this.pnlTop = new System.Windows.Forms.Panel();
+            this.btnShowSettings = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.cmbDeep = new System.Windows.Forms.NumericUpDown();
             this.pnlStatus = new System.Windows.Forms.Panel();
             this.pnlProgress = new System.Windows.Forms.Panel();
             this.pnlButtons = new System.Windows.Forms.Panel();
+            this.btnAllTogether = new System.Windows.Forms.Button();
             this.pnlSettings = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlLocal = new System.Windows.Forms.Panel();
+            this.lblDeep = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.pnlFTP = new System.Windows.Forms.Panel();
             this.lblFTPHeader = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFTP = new System.Windows.Forms.Label();
-            this.btnShowSettings = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbDeep)).BeginInit();
+            this.lblToSync = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.pnlTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbDeep)).BeginInit();
             this.pnlStatus.SuspendLayout();
             this.pnlProgress.SuspendLayout();
             this.pnlButtons.SuspendLayout();
             this.pnlSettings.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.pnlLocal.SuspendLayout();
             this.pnlFTP.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblExe
             // 
             this.lblExe.AutoSize = true;
-            this.lblExe.Location = new System.Drawing.Point(5, 35);
+            this.lblExe.Location = new System.Drawing.Point(6, 38);
             this.lblExe.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblExe.Name = "lblExe";
-            this.lblExe.Size = new System.Drawing.Size(67, 20);
+            this.lblExe.Size = new System.Drawing.Size(56, 17);
             this.lblExe.TabIndex = 0;
             this.lblExe.Text = "AC.exe:";
             // 
             // lblSRU
             // 
-            this.lblSRU.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSRU.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblSRU.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSRU.Image = global::AC_SRU_Sync.Properties.Resources.SRU;
             this.lblSRU.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.lblSRU.Location = new System.Drawing.Point(184, 5);
+            this.lblSRU.Location = new System.Drawing.Point(0, 0);
             this.lblSRU.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSRU.Name = "lblSRU";
-            this.lblSRU.Size = new System.Drawing.Size(482, 90);
+            this.lblSRU.Size = new System.Drawing.Size(888, 90);
             this.lblSRU.TabIndex = 2;
             this.lblSRU.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // txtACEXE
             // 
-            this.txtACEXE.Location = new System.Drawing.Point(74, 31);
+            this.txtACEXE.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtACEXE.Location = new System.Drawing.Point(74, 35);
             this.txtACEXE.Name = "txtACEXE";
-            this.txtACEXE.Size = new System.Drawing.Size(273, 26);
+            this.txtACEXE.Size = new System.Drawing.Size(354, 23);
             this.txtACEXE.TabIndex = 4;
             // 
             // btnCheck
             // 
-            this.btnCheck.ForeColor = System.Drawing.Color.Black;
-            this.btnCheck.Location = new System.Drawing.Point(149, 3);
+            this.btnCheck.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnCheck.FlatAppearance.BorderSize = 2;
+            this.btnCheck.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
+            this.btnCheck.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCheck.Location = new System.Drawing.Point(0, 6);
             this.btnCheck.Name = "btnCheck";
-            this.btnCheck.Size = new System.Drawing.Size(188, 42);
+            this.btnCheck.Size = new System.Drawing.Size(216, 42);
             this.btnCheck.TabIndex = 7;
             this.btnCheck.Text = "Check";
             this.btnCheck.UseVisualStyleBackColor = true;
@@ -112,10 +124,14 @@
             // 
             // btnSync
             // 
-            this.btnSync.ForeColor = System.Drawing.Color.Black;
-            this.btnSync.Location = new System.Drawing.Point(414, 3);
+            this.btnSync.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnSync.FlatAppearance.BorderSize = 2;
+            this.btnSync.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
+            this.btnSync.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnSync.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSync.Location = new System.Drawing.Point(223, 6);
             this.btnSync.Name = "btnSync";
-            this.btnSync.Size = new System.Drawing.Size(188, 42);
+            this.btnSync.Size = new System.Drawing.Size(216, 42);
             this.btnSync.TabIndex = 8;
             this.btnSync.Text = "Sync";
             this.btnSync.UseVisualStyleBackColor = true;
@@ -123,10 +139,14 @@
             // 
             // btnStart
             // 
-            this.btnStart.ForeColor = System.Drawing.Color.Black;
-            this.btnStart.Location = new System.Drawing.Point(663, 3);
+            this.btnStart.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnStart.FlatAppearance.BorderSize = 2;
+            this.btnStart.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
+            this.btnStart.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStart.Location = new System.Drawing.Point(446, 6);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(188, 42);
+            this.btnStart.Size = new System.Drawing.Size(216, 42);
             this.btnStart.TabIndex = 9;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -135,9 +155,9 @@
             // lblStatus
             // 
             this.lblStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblStatus.Location = new System.Drawing.Point(0, 38);
+            this.lblStatus.Location = new System.Drawing.Point(0, 26);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(918, 23);
+            this.lblStatus.Size = new System.Drawing.Size(888, 17);
             this.lblStatus.TabIndex = 10;
             this.lblStatus.Text = "...";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -145,9 +165,9 @@
             // pgbar
             // 
             this.pgbar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pgbar.Location = new System.Drawing.Point(0, 0);
+            this.pgbar.Location = new System.Drawing.Point(0, 5);
             this.pgbar.Name = "pgbar";
-            this.pgbar.Size = new System.Drawing.Size(918, 30);
+            this.pgbar.Size = new System.Drawing.Size(888, 18);
             this.pgbar.TabIndex = 11;
             // 
             // txtStatus
@@ -157,15 +177,19 @@
             this.txtStatus.Multiline = true;
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtStatus.Size = new System.Drawing.Size(918, 153);
+            this.txtStatus.Size = new System.Drawing.Size(888, 207);
             this.txtStatus.TabIndex = 12;
             // 
             // btnClose
             // 
-            this.btnClose.ForeColor = System.Drawing.Color.Black;
-            this.btnClose.Location = new System.Drawing.Point(877, 9);
+            this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnClose.FlatAppearance.BorderSize = 2;
+            this.btnClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
+            this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Location = new System.Drawing.Point(855, 0);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(26, 23);
+            this.btnClose.Size = new System.Drawing.Size(30, 30);
             this.btnClose.TabIndex = 13;
             this.btnClose.Text = "X";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -173,32 +197,78 @@
             // 
             // txtFtpUser
             // 
+            this.txtFtpUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFtpUser.Location = new System.Drawing.Point(93, 66);
             this.txtFtpUser.Name = "txtFtpUser";
-            this.txtFtpUser.Size = new System.Drawing.Size(244, 26);
+            this.txtFtpUser.Size = new System.Drawing.Size(333, 23);
             this.txtFtpUser.TabIndex = 14;
             this.tooly.SetToolTip(this.txtFtpUser, "User to connect (if empty will take anonymous)");
             // 
             // txtFtpPassword
             // 
+            this.txtFtpPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFtpPassword.Location = new System.Drawing.Point(93, 97);
             this.txtFtpPassword.Name = "txtFtpPassword";
-            this.txtFtpPassword.Size = new System.Drawing.Size(244, 26);
+            this.txtFtpPassword.Size = new System.Drawing.Size(333, 23);
             this.txtFtpPassword.TabIndex = 15;
             this.tooly.SetToolTip(this.txtFtpPassword, "password for the user");
             this.txtFtpPassword.UseSystemPasswordChar = true;
             // 
             // txtFTP
             // 
+            this.txtFTP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFTP.Location = new System.Drawing.Point(93, 35);
             this.txtFTP.Name = "txtFTP";
-            this.txtFTP.Size = new System.Drawing.Size(244, 26);
+            this.txtFTP.Size = new System.Drawing.Size(333, 23);
             this.txtFTP.TabIndex = 5;
             this.tooly.SetToolTip(this.txtFTP, "Path to ftp server without ftp://");
             // 
+            // pnlTop
+            // 
+            this.pnlTop.Controls.Add(this.btnShowSettings);
+            this.pnlTop.Controls.Add(this.label2);
+            this.pnlTop.Controls.Add(this.btnClose);
+            this.pnlTop.Controls.Add(this.lblSRU);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Location = new System.Drawing.Point(15, 15);
+            this.pnlTop.Name = "pnlTop";
+            this.pnlTop.Size = new System.Drawing.Size(888, 165);
+            this.pnlTop.TabIndex = 18;
+            this.tooly.SetToolTip(this.pnlTop, "Show Settings");
+            // 
+            // btnShowSettings
+            // 
+            this.btnShowSettings.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnShowSettings.FlatAppearance.BorderSize = 2;
+            this.btnShowSettings.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
+            this.btnShowSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnShowSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowSettings.Location = new System.Drawing.Point(0, 130);
+            this.btnShowSettings.Name = "btnShowSettings";
+            this.btnShowSettings.Size = new System.Drawing.Size(30, 30);
+            this.btnShowSettings.TabIndex = 19;
+            this.btnShowSettings.Text = "-";
+            this.btnShowSettings.UseVisualStyleBackColor = true;
+            this.btnShowSettings.Click += new System.EventHandler(this.btnShowSettings_Click);
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label2.Location = new System.Drawing.Point(4, 95);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(881, 49);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "ASSETTO CORSA SYNC CENTER ";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
             // cmbDeep
             // 
-            this.cmbDeep.Location = new System.Drawing.Point(195, 94);
+            this.cmbDeep.Location = new System.Drawing.Point(74, 66);
             this.cmbDeep.Maximum = new decimal(new int[] {
             10,
             0,
@@ -210,7 +280,7 @@
             0,
             0});
             this.cmbDeep.Name = "cmbDeep";
-            this.cmbDeep.Size = new System.Drawing.Size(39, 26);
+            this.cmbDeep.Size = new System.Drawing.Size(84, 23);
             this.cmbDeep.TabIndex = 16;
             this.cmbDeep.Value = new decimal(new int[] {
             7,
@@ -218,93 +288,104 @@
             0,
             0});
             // 
-            // pnlTop
-            // 
-            this.pnlTop.Controls.Add(this.btnShowSettings);
-            this.pnlTop.Controls.Add(this.lblSRU);
-            this.pnlTop.Controls.Add(this.label2);
-            this.pnlTop.Controls.Add(this.btnClose);
-            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTop.Location = new System.Drawing.Point(0, 0);
-            this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(918, 175);
-            this.pnlTop.TabIndex = 18;
-            this.tooly.SetToolTip(this.pnlTop, "Show Settings");
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label2.Location = new System.Drawing.Point(4, 85);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(910, 59);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "ASSETTO CORSA SYNC CENTER ";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
             // pnlStatus
             // 
             this.pnlStatus.Controls.Add(this.txtStatus);
             this.pnlStatus.Controls.Add(this.pnlProgress);
             this.pnlStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlStatus.Location = new System.Drawing.Point(0, 424);
+            this.pnlStatus.Location = new System.Drawing.Point(15, 373);
             this.pnlStatus.Name = "pnlStatus";
-            this.pnlStatus.Size = new System.Drawing.Size(918, 214);
+            this.pnlStatus.Size = new System.Drawing.Size(888, 250);
             this.pnlStatus.TabIndex = 19;
+            this.pnlStatus.Visible = false;
             // 
             // pnlProgress
             // 
             this.pnlProgress.Controls.Add(this.pgbar);
             this.pnlProgress.Controls.Add(this.lblStatus);
             this.pnlProgress.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlProgress.Location = new System.Drawing.Point(0, 153);
+            this.pnlProgress.Location = new System.Drawing.Point(0, 207);
             this.pnlProgress.Name = "pnlProgress";
-            this.pnlProgress.Size = new System.Drawing.Size(918, 61);
+            this.pnlProgress.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.pnlProgress.Size = new System.Drawing.Size(888, 43);
             this.pnlProgress.TabIndex = 13;
+            this.pnlProgress.Visible = false;
             // 
             // pnlButtons
             // 
+            this.pnlButtons.Controls.Add(this.btnAllTogether);
             this.pnlButtons.Controls.Add(this.btnCheck);
             this.pnlButtons.Controls.Add(this.btnStart);
             this.pnlButtons.Controls.Add(this.btnSync);
-            this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlButtons.Location = new System.Drawing.Point(0, 324);
+            this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlButtons.Location = new System.Drawing.Point(15, 312);
             this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.Size = new System.Drawing.Size(918, 100);
+            this.pnlButtons.Size = new System.Drawing.Size(888, 61);
             this.pnlButtons.TabIndex = 20;
+            // 
+            // btnAllTogether
+            // 
+            this.btnAllTogether.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnAllTogether.FlatAppearance.BorderSize = 2;
+            this.btnAllTogether.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
+            this.btnAllTogether.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnAllTogether.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAllTogether.Location = new System.Drawing.Point(669, 6);
+            this.btnAllTogether.Name = "btnAllTogether";
+            this.btnAllTogether.Size = new System.Drawing.Size(216, 42);
+            this.btnAllTogether.TabIndex = 10;
+            this.btnAllTogether.Text = "Check + Sync + Start";
+            this.btnAllTogether.UseVisualStyleBackColor = true;
             // 
             // pnlSettings
             // 
-            this.pnlSettings.Controls.Add(this.panel1);
+            this.pnlSettings.Controls.Add(this.pnlLocal);
             this.pnlSettings.Controls.Add(this.pnlFTP);
-            this.pnlSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlSettings.Location = new System.Drawing.Point(0, 175);
+            this.pnlSettings.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlSettings.Location = new System.Drawing.Point(15, 180);
             this.pnlSettings.Name = "pnlSettings";
-            this.pnlSettings.Size = new System.Drawing.Size(918, 249);
+            this.pnlSettings.Size = new System.Drawing.Size(888, 132);
             this.pnlSettings.TabIndex = 20;
+            this.pnlSettings.Visible = false;
             this.pnlSettings.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlSettings_Paint);
             // 
-            // panel1
+            // pnlLocal
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.cmbDeep);
-            this.panel1.Controls.Add(this.txtACEXE);
-            this.panel1.Controls.Add(this.lblExe);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(530, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(388, 249);
-            this.panel1.TabIndex = 19;
+            this.pnlLocal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.pnlLocal.Controls.Add(this.checkBox4);
+            this.pnlLocal.Controls.Add(this.checkBox3);
+            this.pnlLocal.Controls.Add(this.checkBox2);
+            this.pnlLocal.Controls.Add(this.checkBox1);
+            this.pnlLocal.Controls.Add(this.lblToSync);
+            this.pnlLocal.Controls.Add(this.lblDeep);
+            this.pnlLocal.Controls.Add(this.label4);
+            this.pnlLocal.Controls.Add(this.cmbDeep);
+            this.pnlLocal.Controls.Add(this.txtACEXE);
+            this.pnlLocal.Controls.Add(this.lblExe);
+            this.pnlLocal.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnlLocal.Location = new System.Drawing.Point(446, 0);
+            this.pnlLocal.Name = "pnlLocal";
+            this.pnlLocal.Size = new System.Drawing.Size(442, 132);
+            this.pnlLocal.TabIndex = 19;
+            // 
+            // lblDeep
+            // 
+            this.lblDeep.AutoSize = true;
+            this.lblDeep.Location = new System.Drawing.Point(6, 68);
+            this.lblDeep.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDeep.Name = "lblDeep";
+            this.lblDeep.Size = new System.Drawing.Size(46, 17);
+            this.lblDeep.TabIndex = 19;
+            this.lblDeep.Text = "Deep:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(6, 6);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(124, 22);
+            this.label4.Size = new System.Drawing.Size(119, 19);
             this.label4.TabIndex = 18;
             this.label4.Text = "Local-Settings:";
             // 
@@ -321,7 +402,7 @@
             this.pnlFTP.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlFTP.Location = new System.Drawing.Point(0, 0);
             this.pnlFTP.Name = "pnlFTP";
-            this.pnlFTP.Size = new System.Drawing.Size(350, 249);
+            this.pnlFTP.Size = new System.Drawing.Size(439, 132);
             this.pnlFTP.TabIndex = 6;
             // 
             // lblFTPHeader
@@ -331,7 +412,7 @@
             this.lblFTPHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFTPHeader.Location = new System.Drawing.Point(6, 6);
             this.lblFTPHeader.Name = "lblFTPHeader";
-            this.lblFTPHeader.Size = new System.Drawing.Size(127, 22);
+            this.lblFTPHeader.Size = new System.Drawing.Size(109, 19);
             this.lblFTPHeader.TabIndex = 18;
             this.lblFTPHeader.Text = "FTP-Settings:";
             // 
@@ -341,7 +422,7 @@
             this.label3.Location = new System.Drawing.Point(4, 100);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(88, 20);
+            this.label3.Size = new System.Drawing.Size(73, 17);
             this.label3.TabIndex = 17;
             this.label3.Text = "Password:";
             // 
@@ -351,7 +432,7 @@
             this.label1.Location = new System.Drawing.Point(4, 68);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 20);
+            this.label1.Size = new System.Drawing.Size(42, 17);
             this.label1.TabIndex = 16;
             this.label1.Text = "User:";
             // 
@@ -361,24 +442,72 @@
             this.lblFTP.Location = new System.Drawing.Point(4, 38);
             this.lblFTP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFTP.Name = "lblFTP";
-            this.lblFTP.Size = new System.Drawing.Size(63, 20);
+            this.lblFTP.Size = new System.Drawing.Size(54, 17);
             this.lblFTP.TabIndex = 4;
             this.lblFTP.Text = "Server:";
             // 
-            // btnShowSettings
+            // lblToSync
             // 
-            this.btnShowSettings.ForeColor = System.Drawing.Color.Black;
-            this.btnShowSettings.Location = new System.Drawing.Point(6, 146);
-            this.btnShowSettings.Name = "btnShowSettings";
-            this.btnShowSettings.Size = new System.Drawing.Size(26, 23);
-            this.btnShowSettings.TabIndex = 19;
-            this.btnShowSettings.Text = "+";
-            this.btnShowSettings.UseVisualStyleBackColor = true;
-            this.btnShowSettings.Click += new System.EventHandler(this.btnShowSettings_Click);
+            this.lblToSync.AutoSize = true;
+            this.lblToSync.Location = new System.Drawing.Point(6, 100);
+            this.lblToSync.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblToSync.Name = "lblToSync";
+            this.lblToSync.Size = new System.Drawing.Size(60, 17);
+            this.lblToSync.TabIndex = 20;
+            this.lblToSync.Text = "ToSync:";
+            this.lblToSync.Visible = false;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(74, 100);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(95, 21);
+            this.checkBox1.TabIndex = 21;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.Visible = false;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(165, 100);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(95, 21);
+            this.checkBox2.TabIndex = 22;
+            this.checkBox2.Text = "checkBox2";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.Visible = false;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(258, 100);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(95, 21);
+            this.checkBox3.TabIndex = 23;
+            this.checkBox3.Text = "checkBox3";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.Visible = false;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(349, 100);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(95, 21);
+            this.checkBox4.TabIndex = 24;
+            this.checkBox4.Text = "checkBox4";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.Visible = false;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // FrmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(918, 638);
@@ -391,16 +520,19 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmMain";
+            this.Padding = new System.Windows.Forms.Padding(15);
             this.Text = "Asetto Corsa Simracing United Sync Center";
-            ((System.ComponentModel.ISupportInitialize)(this.cmbDeep)).EndInit();
+            this.Load += new System.EventHandler(this.FrmMain_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmMain_MouseDown);
             this.pnlTop.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.cmbDeep)).EndInit();
             this.pnlStatus.ResumeLayout(false);
             this.pnlStatus.PerformLayout();
             this.pnlProgress.ResumeLayout(false);
             this.pnlButtons.ResumeLayout(false);
             this.pnlSettings.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlLocal.ResumeLayout(false);
+            this.pnlLocal.PerformLayout();
             this.pnlFTP.ResumeLayout(false);
             this.pnlFTP.PerformLayout();
             this.ResumeLayout(false);
@@ -435,9 +567,16 @@
         private System.Windows.Forms.Label lblFTPHeader;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlLocal;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnShowSettings;
+        private System.Windows.Forms.Button btnAllTogether;
+        private System.Windows.Forms.Label lblDeep;
+        private System.Windows.Forms.Label lblToSync;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

@@ -82,5 +82,65 @@ namespace AC_SRU_Sync.Properties {
                 this["deep"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SettingsVisible {
+            get {
+                return ((bool)(this["SettingsVisible"]));
+            }
+            set {
+                this["SettingsVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int DesktopLocationX {
+            get {
+                return ((int)(this["DesktopLocationX"]));
+            }
+            set {
+                this["DesktopLocationX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int DesktopLocationY {
+            get {
+                return ((int)(this["DesktopLocationY"]));
+            }
+            set {
+                this["DesktopLocationY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MainDirectories {
+            get {
+                return ((string)(this["MainDirectories"]));
+            }
+            set {
+                this["MainDirectories"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ToSync {
+            get {
+                return ((string)(this["ToSync"]));
+            }
+            set {
+                this["ToSync"] = value;
+            }
+        }
     }
 }
