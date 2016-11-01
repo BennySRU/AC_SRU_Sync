@@ -66,7 +66,7 @@ namespace AC_SRU_Sync
                 if (ftpli.Type == FtpFileSystemObjectType.Directory)
                 {
                     FTPDirectory newDir = new FTPDirectory(ftpli.Name, ftpli.FullName,dirToAdd,dirToAdd._deep+1);
-                    if (newDir._deep < maxDeep)
+                    if (newDir._deep <= maxDeep)
                     {
                         FillListItems(newDir, newDir._fullpath, newDir._deep, maxDeep);
 
@@ -102,9 +102,11 @@ namespace AC_SRU_Sync
             FillListItems(root, "",root._deep+1,maxDeep);
             return root;
         }
-        public void DownloadFolder(FTPDirectory toSync, FrmMain frmMain)
+        public void DownloadFolder(FTPDirectory toSync, FrmMain frmMain,int curFolder,int maxFolder)
         {
-            frmMain.SetProgress(1,2,"Der Baum des Ordners wird noch einmal ganz durchsucht!");
+            int curVal = curFolder * 3 + 1;
+            int maxVal = maxFolder * 3;
+            frmMain.SetProgress(curVal, maxVal,"Der Baum des Ordners(" + curFolder + "," + maxFolder +") wird noch einmal ganz durchsucht!");
             FillListItems(toSync, toSync._fullpath, toSync._deep + 1);
             //Verzeichnis erstellen
             if (!Directory.Exists(toSync._localPath))
@@ -113,9 +115,11 @@ namespace AC_SRU_Sync
             }
             int anzObjekte = toSync.Descendants().Count();
             anzObjekte += toSync.Descendants().Select(x => x.lstFiles.Count).Sum();
-            int curVal = anzObjekte;
-            int maxVal = anzObjekte * 2;
-            frmMain.SetProgress(2, 3, "Ordner und Files werden angelegt! Objekte:" + anzObjekte);
+
+            curVal = curVal + 1;
+            frmMain.SetProgress(curVal, maxVal, "Ordner und Files werden angelegt! Anzahl Objekte:" + anzObjekte);
+            curVal = anzObjekte * curVal;
+            maxVal = anzObjekte *maxVal;
             CreateAllFilesAndFolders(toSync,  frmMain,curVal,maxVal);
         }
         private void CreateAllFilesAndFolders(FTPDirectory ftpDir, FrmMain frmMain, int curVal, int maxVal)
@@ -125,7 +129,7 @@ namespace AC_SRU_Sync
                 dir._localPath = Path.Combine(ftpDir._localPath, dir._name);
 
                 curVal++;
-                frmMain.SetProgress(curVal, maxVal, "Ordner " + dir._localPath + " wird angelegt!");
+                frmMain.SetProgress(curVal, maxVal, "Ordner " + dir._localPath + " wird überprüft!");
                 if (!Directory.Exists(dir._localPath))
                 {
 
@@ -140,17 +144,33 @@ namespace AC_SRU_Sync
                     using (var ftpStream = getFTPClient().OpenRead(file.ftpListItem.FullName))
                         if ((int)ftpStream.Length == 0)
                         {
-                            System.IO.File.WriteAllLines(destPath, new string[0]);
+                            if (!File.Exists(destPath))
+                            {
+                                System.IO.File.WriteAllLines(destPath, new string[0]);
+                            }
                         }
                         else {
-                            using (var fileStream = File.Create(destPath, (int)ftpStream.Length))
+                            bool doOverwrite = true;
+                            if (File.Exists(destPath))
                             {
-                                var buffer = new byte[8 * 1024];
-                                int count;
-                                while ((count = ftpStream.Read(buffer, 0, buffer.Length)) > 0)
+                                byte[] file1 = File.ReadAllBytes(destPath);
+                                if (file1.Length == file.ftpListItem.Size)
                                 {
-                                    fileStream.Write(buffer, 0, count);
+                                    doOverwrite = false;
                                 }
+                            }
+                            if (doOverwrite)
+                            {
+                                using (var fileStream = File.Create(destPath, (int)ftpStream.Length))
+                                {
+                                    var buffer = new byte[8 * 1024];
+                                    int count;
+                                    while ((count = ftpStream.Read(buffer, 0, buffer.Length)) > 0)
+                                    {
+                                        fileStream.Write(buffer, 0, count);
+                                    }
+                                }
+                                frmMain.SetProgress(curVal, maxVal, "File " + destPath + " wird angelegt!");
                             }
                         }
                 }
@@ -159,7 +179,6 @@ namespace AC_SRU_Sync
 
                 }
                 curVal++;
-                frmMain.SetProgress(curVal, maxVal, "File " + file.ftpListItem.Name + " wird angelegt!");
             }
         }
     }

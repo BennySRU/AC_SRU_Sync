@@ -341,12 +341,14 @@ namespace AC_SRU_Sync
                 if (AC_SRU_Sync.Properties.Settings.Default.ToSync.Contains(mainDir.ftpDir._name))
                 {
                     WriteLog("Sync Folder " + mainDir.ftpDir._name);
+                    int i = 1;
                     foreach (FTPDirectory ftpDir in mainDir.ftpDirsToSync)
                     {
                         WriteLog("Sync ObjectType " + ftpDir._parentDir._name + " Name: " + ftpDir._name + " " + (ftpDir.toAdd ? "add" : "sync"));
-                        GetFTPHelper().DownloadFolder(ftpDir, this);
+                        GetFTPHelper().DownloadFolder(ftpDir, this,i, mainDir.ftpDirsToSync.Count);
                         WriteLog("Elapsed :" + (DateTime.Now - start).TotalSeconds.ToString("0.00") + "s" + Environment.NewLine);
                         start = DateTime.Now;
+                        i++;
                     }
                 }
             }
