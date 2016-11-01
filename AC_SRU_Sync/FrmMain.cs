@@ -29,6 +29,10 @@ namespace AC_SRU_Sync
             {
                 txtFtpPassword.Text = simpleAES.DecryptString(AC_SRU_Sync.Properties.Settings.Default.ftpPassword);
             }
+            else
+            {
+                txtFtpPassword.Text = "";
+            }
             if (AC_SRU_Sync.Properties.Settings.Default.deep > 3)
             {
                 deepToCheck = AC_SRU_Sync.Properties.Settings.Default.deep;
@@ -90,6 +94,7 @@ namespace AC_SRU_Sync
             txtACEXE.Text.Equals(AC_SRU_Sync.Properties.Settings.Default.localPath) &&
             cmbDeep.Value == AC_SRU_Sync.Properties.Settings.Default.deep &&
             txtFtpUser.Text.Equals(AC_SRU_Sync.Properties.Settings.Default.ftpUser )&&
+            (txtFtpPassword.Text.Equals("")&&AC_SRU_Sync.Properties.Settings.Default.ftpPassword.Equals(""))||
             simpleAES.EncryptToString( txtFtpPassword.Text).Equals(AC_SRU_Sync.Properties.Settings.Default.ftpPassword))
             {
                 return false;
@@ -216,5 +221,16 @@ namespace AC_SRU_Sync
         }
         #endregion
 
+        private void pnlSettings_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnShowSettings_Click(object sender, EventArgs e)
+        {
+            pnlSettings.Visible = !pnlSettings.Visible ;
+            btnShowSettings.Text = pnlSettings.Visible?"+":"-";
+            
+        }
     }
 }
