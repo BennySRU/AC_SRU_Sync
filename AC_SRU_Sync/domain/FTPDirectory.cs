@@ -11,16 +11,17 @@ namespace AC_SRU_Sync
         public FTPDirectory()
         {
         }
-        public FTPDirectory(string name, string fullpath, FTPDirectory parentDir)
+        public FTPDirectory(string name, string fullpath, FTPDirectory parentDir, int deep)
         {
             this._name = name;
             this._fullpath = fullpath;
             _parentDir = parentDir;
-
+            _deep = deep;
         }
         public string _name { get; set; }
         public string _fullpath { get; set; }
         public string _localPath { get; set; }
+        public int _deep { get; set; }
         public FTPDirectory _parentDir;
         public List<FTPDirectory> subDirectories = new List<FTPDirectory>();
         public List<FTPFile> lstFiles = new List<FTPFile>();

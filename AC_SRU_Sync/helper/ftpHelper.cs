@@ -57,18 +57,17 @@ namespace AC_SRU_Sync
                 return false;
             }
         }
-        public void FillListItems( FTPDirectory dirToAdd,string subfolder = "",int deep=100)
+        public void FillListItems( FTPDirectory dirToAdd,string subfolder = "",int deep=0,int maxDeep=100)
         {
             List<FtpListItem> lstItems = getFTPClient().GetListing(subfolder).ToList();
             foreach (FtpListItem ftpli in lstItems)
             {
                 if (ftpli.Type == FtpFileSystemObjectType.Directory)
                 {
-                    FTPDirectory newDir = new FTPDirectory(ftpli.Name, ftpli.FullName,dirToAdd);
-                    if (deep > 0)
+                    FTPDirectory newDir = new FTPDirectory(ftpli.Name, ftpli.FullName,dirToAdd,dirToAdd._deep+1);
+                    if (newDir._deep < maxDeep)
                     {
-                        deep--;
-                        FillListItems(newDir, newDir._fullpath,deep);
+                        FillListItems(newDir, newDir._fullpath, newDir._deep, maxDeep);
 
                     }
                     dirToAdd.subDirectories.Add(newDir);
@@ -80,11 +79,12 @@ namespace AC_SRU_Sync
             }
             
         }
-        public FTPDirectory GetFTPHoleTree(string path, string username = "", string password = "", int deep=100)
+        public FTPDirectory GetFTPHoleTree(string path, string username = "", string password = "", int maxDeep=100)
         {
             FTPDirectory root = new FTPDirectory();
             root._name = path;
             root._fullpath = path;
+            root._deep = 0;
             if (!path.Equals(rootPath) || getFTPClient().IsConnected == false)
             {
                 rootPath = path;
@@ -98,12 +98,12 @@ namespace AC_SRU_Sync
                 return null;
             }
             //Root Elemente befüllen
-            FillListItems(root, "",deep);
+            FillListItems(root, "",root._deep+1,maxDeep);
             return root;
         }
         public void DownloadFolder(FTPDirectory toSync)
         {
-            FillListItems(toSync, toSync._fullpath);
+            FillListItems(toSync, toSync._fullpath, toSync._deep + 1);
             //Verzeichnis erstellen
             if (!Directory.Exists(toSync._localPath))
             {

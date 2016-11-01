@@ -186,12 +186,12 @@
             // 
             this.cmbDeep.Location = new System.Drawing.Point(690, 145);
             this.cmbDeep.Maximum = new decimal(new int[] {
-            12,
+            10,
             0,
             0,
             0});
             this.cmbDeep.Minimum = new decimal(new int[] {
-            5,
+            4,
             0,
             0,
             0});

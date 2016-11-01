@@ -111,15 +111,17 @@ namespace AC_SRU_Sync
             {
                 return;
             }
-            txtStatus.Text += "Successfull FTP Connection! Tree loaded with deep of " + cmbDeep.Value.ToString("0") + " levels. Elapsed: " + (DateTime.Now - start).TotalSeconds.ToString("0.00") + " s" + Environment.NewLine + Environment.NewLine;
-
+            txtStatus.Text += "Successfull FTP Connection! Tree loaded with maxdeep of " + cmbDeep.Value.ToString("0") + " levels.";
+            WriteLog("Elapsed: " + (DateTime.Now - start).TotalSeconds.ToString("0.00") + " s" + Environment.NewLine);
+            start = DateTime.Now;
             if (CheckForContentFolders() == false)
             {
                 return;
             }
-            txtStatus.Text += "Found Contentfolders: " + mainDirectories.Count + Environment.NewLine;
+            int maxDeep = mainDirectories[1].ftpDir.Descendants().OrderByDescending(x => x._deep).First()._deep;
+            txtStatus.Text += "Found Contentfolders: " + mainDirectories.Count + " with maxDeep of " + maxDeep + Environment.NewLine;
             txtStatus.Text += "Elapsed:" + (DateTime.Now - start).TotalSeconds.ToString("0.00") + "s" + Environment.NewLine + Environment.NewLine;
-
+            start = DateTime.Now;
             //Check AC Exe
             if (ACHelper.CheckLocalExeAndContentFolder(txtACEXE.Text) == false)
             {
@@ -137,6 +139,7 @@ namespace AC_SRU_Sync
                 }
                 btnSync.Enabled = canbeSyncd;
             }
+            txtStatus.Text += "Finished!!!" + Environment.NewLine + " Elapsed:" + (DateTime.Now - start).TotalSeconds.ToString("0.00") + "s" + Environment.NewLine + Environment.NewLine;
 
 
         }
