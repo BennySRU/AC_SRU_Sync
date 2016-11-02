@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.lblExe = new System.Windows.Forms.Label();
             this.lblSRU = new System.Windows.Forms.Label();
             this.txtACEXE = new System.Windows.Forms.TextBox();
@@ -53,6 +54,11 @@
             this.btnAllTogether = new System.Windows.Forms.Button();
             this.pnlSettings = new System.Windows.Forms.Panel();
             this.pnlLocal = new System.Windows.Forms.Panel();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.lblToSync = new System.Windows.Forms.Label();
             this.lblDeep = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.pnlFTP = new System.Windows.Forms.Panel();
@@ -60,11 +66,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFTP = new System.Windows.Forms.Label();
-            this.lblToSync = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.pnlTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDeep)).BeginInit();
             this.pnlStatus.SuspendLayout();
@@ -81,7 +82,7 @@
             this.lblExe.Location = new System.Drawing.Point(6, 38);
             this.lblExe.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblExe.Name = "lblExe";
-            this.lblExe.Size = new System.Drawing.Size(56, 17);
+            this.lblExe.Size = new System.Drawing.Size(67, 20);
             this.lblExe.TabIndex = 0;
             this.lblExe.Text = "AC.exe:";
             // 
@@ -104,7 +105,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtACEXE.Location = new System.Drawing.Point(74, 35);
             this.txtACEXE.Name = "txtACEXE";
-            this.txtACEXE.Size = new System.Drawing.Size(354, 23);
+            this.txtACEXE.Size = new System.Drawing.Size(354, 26);
             this.txtACEXE.TabIndex = 4;
             // 
             // btnCheck
@@ -201,7 +202,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFtpUser.Location = new System.Drawing.Point(93, 66);
             this.txtFtpUser.Name = "txtFtpUser";
-            this.txtFtpUser.Size = new System.Drawing.Size(333, 23);
+            this.txtFtpUser.Size = new System.Drawing.Size(333, 26);
             this.txtFtpUser.TabIndex = 14;
             this.tooly.SetToolTip(this.txtFtpUser, "User to connect (if empty will take anonymous)");
             // 
@@ -211,7 +212,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFtpPassword.Location = new System.Drawing.Point(93, 97);
             this.txtFtpPassword.Name = "txtFtpPassword";
-            this.txtFtpPassword.Size = new System.Drawing.Size(333, 23);
+            this.txtFtpPassword.Size = new System.Drawing.Size(333, 26);
             this.txtFtpPassword.TabIndex = 15;
             this.tooly.SetToolTip(this.txtFtpPassword, "password for the user");
             this.txtFtpPassword.UseSystemPasswordChar = true;
@@ -222,7 +223,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFTP.Location = new System.Drawing.Point(93, 35);
             this.txtFTP.Name = "txtFTP";
-            this.txtFTP.Size = new System.Drawing.Size(333, 23);
+            this.txtFTP.Size = new System.Drawing.Size(333, 26);
             this.txtFTP.TabIndex = 5;
             this.tooly.SetToolTip(this.txtFTP, "Path to ftp server without ftp://");
             // 
@@ -280,7 +281,7 @@
             0,
             0});
             this.cmbDeep.Name = "cmbDeep";
-            this.cmbDeep.Size = new System.Drawing.Size(84, 23);
+            this.cmbDeep.Size = new System.Drawing.Size(84, 26);
             this.cmbDeep.TabIndex = 16;
             this.cmbDeep.Value = new decimal(new int[] {
             7,
@@ -368,13 +369,72 @@
             this.pnlLocal.Size = new System.Drawing.Size(442, 132);
             this.pnlLocal.TabIndex = 19;
             // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(349, 100);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(113, 24);
+            this.checkBox4.TabIndex = 24;
+            this.checkBox4.Text = "checkBox4";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.Visible = false;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(258, 100);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(113, 24);
+            this.checkBox3.TabIndex = 23;
+            this.checkBox3.Text = "checkBox3";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.Visible = false;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(165, 100);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(113, 24);
+            this.checkBox2.TabIndex = 22;
+            this.checkBox2.Text = "checkBox2";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.Visible = false;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(74, 100);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(113, 24);
+            this.checkBox1.TabIndex = 21;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.Visible = false;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
+            // 
+            // lblToSync
+            // 
+            this.lblToSync.AutoSize = true;
+            this.lblToSync.Location = new System.Drawing.Point(6, 100);
+            this.lblToSync.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblToSync.Name = "lblToSync";
+            this.lblToSync.Size = new System.Drawing.Size(70, 20);
+            this.lblToSync.TabIndex = 20;
+            this.lblToSync.Text = "ToSync:";
+            this.lblToSync.Visible = false;
+            // 
             // lblDeep
             // 
             this.lblDeep.AutoSize = true;
             this.lblDeep.Location = new System.Drawing.Point(6, 68);
             this.lblDeep.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDeep.Name = "lblDeep";
-            this.lblDeep.Size = new System.Drawing.Size(46, 17);
+            this.lblDeep.Size = new System.Drawing.Size(54, 20);
             this.lblDeep.TabIndex = 19;
             this.lblDeep.Text = "Deep:";
             // 
@@ -385,7 +445,7 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(6, 6);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(119, 19);
+            this.label4.Size = new System.Drawing.Size(139, 22);
             this.label4.TabIndex = 18;
             this.label4.Text = "Local-Settings:";
             // 
@@ -412,7 +472,7 @@
             this.lblFTPHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFTPHeader.Location = new System.Drawing.Point(6, 6);
             this.lblFTPHeader.Name = "lblFTPHeader";
-            this.lblFTPHeader.Size = new System.Drawing.Size(109, 19);
+            this.lblFTPHeader.Size = new System.Drawing.Size(127, 22);
             this.lblFTPHeader.TabIndex = 18;
             this.lblFTPHeader.Text = "FTP-Settings:";
             // 
@@ -422,7 +482,7 @@
             this.label3.Location = new System.Drawing.Point(4, 100);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 17);
+            this.label3.Size = new System.Drawing.Size(88, 20);
             this.label3.TabIndex = 17;
             this.label3.Text = "Password:";
             // 
@@ -432,7 +492,7 @@
             this.label1.Location = new System.Drawing.Point(4, 68);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 17);
+            this.label1.Size = new System.Drawing.Size(50, 20);
             this.label1.TabIndex = 16;
             this.label1.Text = "User:";
             // 
@@ -442,72 +502,13 @@
             this.lblFTP.Location = new System.Drawing.Point(4, 38);
             this.lblFTP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFTP.Name = "lblFTP";
-            this.lblFTP.Size = new System.Drawing.Size(54, 17);
+            this.lblFTP.Size = new System.Drawing.Size(63, 20);
             this.lblFTP.TabIndex = 4;
             this.lblFTP.Text = "Server:";
             // 
-            // lblToSync
-            // 
-            this.lblToSync.AutoSize = true;
-            this.lblToSync.Location = new System.Drawing.Point(6, 100);
-            this.lblToSync.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblToSync.Name = "lblToSync";
-            this.lblToSync.Size = new System.Drawing.Size(60, 17);
-            this.lblToSync.TabIndex = 20;
-            this.lblToSync.Text = "ToSync:";
-            this.lblToSync.Visible = false;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(74, 100);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(95, 21);
-            this.checkBox1.TabIndex = 21;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.Visible = false;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(165, 100);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(95, 21);
-            this.checkBox2.TabIndex = 22;
-            this.checkBox2.Text = "checkBox2";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.Visible = false;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(258, 100);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(95, 21);
-            this.checkBox3.TabIndex = 23;
-            this.checkBox3.Text = "checkBox3";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.Visible = false;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(349, 100);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(95, 21);
-            this.checkBox4.TabIndex = 24;
-            this.checkBox4.Text = "checkBox4";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            this.checkBox4.Visible = false;
-            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
-            // 
             // FrmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(918, 638);
@@ -518,6 +519,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmMain";
             this.Padding = new System.Windows.Forms.Padding(15);
