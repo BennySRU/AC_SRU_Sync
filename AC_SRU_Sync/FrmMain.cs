@@ -30,16 +30,61 @@ namespace AC_SRU_Sync
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
-        #region Formereignisse
+
+        #region Laden und Form-Ereignisse
         public FrmMain()
         {
             InitializeComponent();
+
+            LoadSettings();
+
+        }
+
+
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+            if (AC_SRU_Sync.Properties.Settings.Default.DesktopLocationX>=0&&
+                AC_SRU_Sync.Properties.Settings.Default.DesktopLocationY >= 0 )
+            this.SetDesktopLocation(AC_SRU_Sync.Properties.Settings.Default.DesktopLocationX, AC_SRU_Sync.Properties.Settings.Default.DesktopLocationY);// = AC_SRU_Sync.Properties.Settings.Default.WindowPosition;
+            
+        }
+        private void FrmMain_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+
+        }
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            CloseApplication();
+        }
+        #endregion  
+
+        public FTPHelper GetFTPHelper()
+        {
+            //Hier noch User und PW abfangen
+            if (ftpHelper == null)
+            {
+                ftpHelper = new FTPHelper(txtFTP.Text);
+            }
+            return ftpHelper;
+        }
+        #region Settings
+
+        /// <summary>
+        /// Lädt die Einstelungen aus den Usersettings
+        /// </summary>
+        private void LoadSettings()
+        {
             txtFTP.Text = AC_SRU_Sync.Properties.Settings.Default.ftpPath;
             txtACEXE.Text = AC_SRU_Sync.Properties.Settings.Default.localPath;
             txtFtpUser.Text = AC_SRU_Sync.Properties.Settings.Default.ftpUser;
             pnlSettings.Visible = AC_SRU_Sync.Properties.Settings.Default.SettingsVisible;
-            btnShowSettings.Text = pnlSettings.Visible?"-":"+";
-           
+            btnShowSettings.Text = pnlSettings.Visible ? "-" : "+";
+
             if (!AC_SRU_Sync.Properties.Settings.Default.ftpPassword.Equals(""))
             {
                 txtFtpPassword.Text = simpleAES.DecryptString(AC_SRU_Sync.Properties.Settings.Default.ftpPassword);
@@ -60,42 +105,13 @@ namespace AC_SRU_Sync
             checkBoxes.Add(1, checkBox2);
             checkBoxes.Add(2, checkBox3);
             checkBoxes.Add(3, checkBox4);
-            LoadMainDirs();
+            LoadMainDirsFromSettings();
             isLoading = false;
+        }
 
-        }
-        private void FrmMain_Load(object sender, EventArgs e)
-        {
-            if (AC_SRU_Sync.Properties.Settings.Default.DesktopLocationX>=0&&
-                AC_SRU_Sync.Properties.Settings.Default.DesktopLocationY >= 0 )
-            this.SetDesktopLocation(AC_SRU_Sync.Properties.Settings.Default.DesktopLocationX, AC_SRU_Sync.Properties.Settings.Default.DesktopLocationY);// = AC_SRU_Sync.Properties.Settings.Default.WindowPosition;
-            
-        }
-        private void FrmMain_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
-
-        }
-        #endregion  
-
-        public FTPHelper GetFTPHelper()
-        {
-            //Hier noch User und PW abfangen
-            if (ftpHelper == null)
-            {
-                ftpHelper = new FTPHelper(txtFTP.Text);
-            }
-            return ftpHelper;
-        }
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            CloseApplication();
-        }
-        #region Settings
+        /// <summary>
+        /// Close and Save Setting
+        /// </summary>
         private void CloseApplication()
         {
             //Standardattribute speichern
@@ -118,6 +134,22 @@ namespace AC_SRU_Sync
             }
                 this.Close();
         }
+        private bool HasSettingsChanged()
+        {
+            if (txtFTP.Text.Equals(AC_SRU_Sync.Properties.Settings.Default.ftpPath) &&
+            txtACEXE.Text.Equals(AC_SRU_Sync.Properties.Settings.Default.localPath) &&
+            cmbDeep.Value == AC_SRU_Sync.Properties.Settings.Default.deep &&
+            txtFtpUser.Text.Equals(AC_SRU_Sync.Properties.Settings.Default.ftpUser) &&
+            (txtFtpPassword.Text.Equals("") && AC_SRU_Sync.Properties.Settings.Default.ftpPassword.Equals("")) ||
+            simpleAES.EncryptToString(txtFtpPassword.Text).Equals(AC_SRU_Sync.Properties.Settings.Default.ftpPassword))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         private void SaveSettings()
         {
             AC_SRU_Sync.Properties.Settings.Default.ftpPath = txtFTP.Text;
@@ -133,23 +165,9 @@ namespace AC_SRU_Sync
             }
             AC_SRU_Sync.Properties.Settings.Default.deep = (int)cmbDeep.Value;
             AC_SRU_Sync.Properties.Settings.Default.Save();
-    }
-        private bool HasSettingsChanged() {
-            if (txtFTP.Text.Equals(AC_SRU_Sync.Properties.Settings.Default.ftpPath) &&
-            txtACEXE.Text.Equals(AC_SRU_Sync.Properties.Settings.Default.localPath) &&
-            cmbDeep.Value == AC_SRU_Sync.Properties.Settings.Default.deep &&
-            txtFtpUser.Text.Equals(AC_SRU_Sync.Properties.Settings.Default.ftpUser )&&
-            (txtFtpPassword.Text.Equals("")&&AC_SRU_Sync.Properties.Settings.Default.ftpPassword.Equals(""))||
-            simpleAES.EncryptToString( txtFtpPassword.Text).Equals(AC_SRU_Sync.Properties.Settings.Default.ftpPassword))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
         }
-        private void LoadMainDirs()
+        
+        private void LoadMainDirsFromSettings()
         {
             string mainDir = AC_SRU_Sync.Properties.Settings.Default.MainDirectories;
             string toSync = AC_SRU_Sync.Properties.Settings.Default.ToSync;
@@ -160,6 +178,7 @@ namespace AC_SRU_Sync
             if (mainDir.Equals(""))
             {
                 this.lblToSync.Visible = false;
+                return;
             }
             string[] folders = mainDir.Split(';');
             int i = 0;
@@ -172,7 +191,7 @@ namespace AC_SRU_Sync
             }
             if (i > 0) lblToSync.Visible = true;
         }
-        private void LoadMainDirs(List<MainDirectory> mainDirs)
+        private void LoadMainDirsFromFoundDirs(List<MainDirectory> mainDirs)
         {
             string mainDir = AC_SRU_Sync.Properties.Settings.Default.MainDirectories;
             string newDir = string.Join(";", mainDirs.Select(x => x.ftpDir._name));
@@ -182,7 +201,7 @@ namespace AC_SRU_Sync
                 AC_SRU_Sync.Properties.Settings.Default.MainDirectories = newDir;
                 AC_SRU_Sync.Properties.Settings.Default.ToSync = "";
                 AC_SRU_Sync.Properties.Settings.Default.Save();
-                LoadMainDirs();
+                LoadMainDirsFromSettings();
                 if (pnlSettings.Visible == false)
                 {
                     pnlSettings.Visible = true;
@@ -211,7 +230,7 @@ namespace AC_SRU_Sync
                 CheckFTPANDLocalFolders();
                 if (mainDirectories.Count > 0)
                 {
-                    LoadMainDirs(mainDirectories);
+                    LoadMainDirsFromFoundDirs(mainDirectories);
                 }
             }
             catch { }
@@ -227,8 +246,10 @@ namespace AC_SRU_Sync
             pgbar.Step = 1;
             pgbar.Value = 1;
             WriteLog("Check started at " + start.ToLongTimeString() + Environment.NewLine, false) ;
-            if (CheckFTPServerNeu(txtFTP.Text) == false)
+            if (checkFTPServer(txtFTP.Text) == false)
             {
+                WriteLog("Sorry, could not conect to FTP Server!");
+                WriteLog("Please check network connection and FTP-Settings");
                 return;
             }
             pgbar.Value = 2;
@@ -237,6 +258,8 @@ namespace AC_SRU_Sync
             start = DateTime.Now;
             if (CheckForContentFolders() == false)
             {
+
+                WriteLog("Sorry, no content Folder found on Server!");
                 return;
             }
 
@@ -268,7 +291,7 @@ namespace AC_SRU_Sync
             WriteLog("Finished!!!" + Environment.NewLine + " Elapsed:" + (DateTime.Now - start).TotalSeconds.ToString("0.00") + "s" + Environment.NewLine );
         }
 
-        private Boolean CheckFTPServerNeu(string ftpServer)
+        private Boolean checkFTPServer(string ftpServer)
         {
             try
             {
@@ -277,7 +300,7 @@ namespace AC_SRU_Sync
                     return false;
                 }
                 //Hier eventuell ohne user / Passwort
-                rootDir = GetFTPHelper().GetFTPHoleTree(txtFTP.Text, "","", (int)cmbDeep.Value);
+                rootDir = GetFTPHelper().GetFTPHoleTree(txtFTP.Text, "","", (int)cmbDeep.Value,this);
                 return true;
             }
             catch (Exception ex)
@@ -392,6 +415,12 @@ namespace AC_SRU_Sync
         {
             if (isLoading) return;
             SaveMainDirs();
+        }
+
+        private void btnInfo_Click(object sender, EventArgs e)
+        {
+            FrmInfo frmInfo = new FrmInfo();
+            frmInfo.ShowDialog();
         }
     }
 }

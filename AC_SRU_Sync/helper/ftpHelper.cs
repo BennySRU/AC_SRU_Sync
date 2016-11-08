@@ -58,11 +58,36 @@ namespace AC_SRU_Sync
                 return false;
             }
         }
-        public void FillListItems( FTPDirectory dirToAdd,string subfolder = "",int deep=0,int maxDeep=100)
+        public FTPDirectory GetFTPHoleTree(string path, string username = "", string password = "", int maxDeep = 100, FrmMain frmMain = null)
+        {
+            FTPDirectory root = new FTPDirectory();
+            root._name = path;
+            root._fullpath = path;
+            root._deep = 0;
+            if (!path.Equals(rootPath) || getFTPClient().IsConnected == false)
+            {
+                rootPath = path;
+                _username = username;
+                _password = password;
+                if (_username.Equals("")) _username = "anonymous";
+
+            }
+            if (getFTPClient().IsConnected == false)
+            {
+                return null;
+            }
+            //Root Elemente befüllen
+            FillListItems(root, "", root._deep + 1, maxDeep, frmMain,1,10000);
+            return root;
+        }
+        public void FillListItems( FTPDirectory dirToAdd,string subfolder = "",int deep=0,int maxDeep=100,FrmMain frmMain=null,int progressVal=0,int progressMax=1000)
         {
             List<FtpListItem> lstItems = getFTPClient().GetListing(subfolder).ToList();
+            
             foreach (FtpListItem ftpli in lstItems)
             {
+                progressVal += 1;
+                if (frmMain != null) frmMain.SetProgress(progressVal, progressMax, "Found Folder " + ftpli.FullName + " (" + progressVal + ")");
                 if (ftpli.Type == FtpFileSystemObjectType.Directory)
                 {
                     FTPDirectory newDir = new FTPDirectory(ftpli.Name, ftpli.FullName,dirToAdd,dirToAdd._deep+1);
@@ -79,28 +104,6 @@ namespace AC_SRU_Sync
                 }
             }
             
-        }
-        public FTPDirectory GetFTPHoleTree(string path, string username = "", string password = "", int maxDeep=100)
-        {
-            FTPDirectory root = new FTPDirectory();
-            root._name = path;
-            root._fullpath = path;
-            root._deep = 0;
-            if (!path.Equals(rootPath) || getFTPClient().IsConnected == false)
-            {
-                rootPath = path;
-                _username = username;
-                _password = password;
-                if (_username.Equals("")) _username = "anonymous";
-                
-            }
-            if (getFTPClient().IsConnected == false)
-            {
-                return null;
-            }
-            //Root Elemente befüllen
-            FillListItems(root, "",root._deep+1,maxDeep);
-            return root;
         }
         public void DownloadFolder(FTPDirectory toSync, FrmMain frmMain,int curFolder,int maxFolder)
         {
@@ -174,7 +177,7 @@ namespace AC_SRU_Sync
                             }
                         }
                 }
-                catch(Exception ex)
+                catch
                 {
 
                 }

@@ -66,6 +66,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFTP = new System.Windows.Forms.Label();
+            this.btnInfo = new System.Windows.Forms.Button();
             this.pnlTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDeep)).BeginInit();
             this.pnlStatus.SuspendLayout();
@@ -229,6 +230,7 @@
             // 
             // pnlTop
             // 
+            this.pnlTop.Controls.Add(this.btnInfo);
             this.pnlTop.Controls.Add(this.btnShowSettings);
             this.pnlTop.Controls.Add(this.label2);
             this.pnlTop.Controls.Add(this.btnClose);
@@ -506,6 +508,21 @@
             this.lblFTP.TabIndex = 4;
             this.lblFTP.Text = "Server:";
             // 
+            // btnInfo
+            // 
+            this.btnInfo.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnInfo.FlatAppearance.BorderSize = 2;
+            this.btnInfo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
+            this.btnInfo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInfo.Location = new System.Drawing.Point(3, 0);
+            this.btnInfo.Name = "btnInfo";
+            this.btnInfo.Size = new System.Drawing.Size(30, 30);
+            this.btnInfo.TabIndex = 20;
+            this.btnInfo.Text = "i";
+            this.btnInfo.UseVisualStyleBackColor = true;
+            this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -579,6 +596,7 @@
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button btnInfo;
     }
 }
 
