@@ -10,20 +10,26 @@ namespace AC_SRU_Sync
     {
         public FTPDirectory ftpDir { get; set; }
         public List<FTPDirectory> ftpDirsToSync { get; set; }
-        public MainDirectory(FTPDirectory dir)
+        public FTPDirectory rootFolder { get; set; }
+        public List<FTPFile> ftpFilesToSync { get; set; }
+        public MainDirectory(FTPDirectory dir, FTPDirectory root)
         {
+            rootFolder = root;
             ftpDir = dir;
         }
         public string InfoString()
         {
-            string toReturn = ftpDir._name + " (";
+            string toReturn = ftpDir.GetSeriesName() + " (";
             foreach (string subdir in ACHelper.getContentTypes())
             {
-                FTPDirectory dir = ftpDir.Descendants().Where(x => x._name.Equals(subdir)).FirstOrDefault();
-                if (dir != null)
-                {
-                    toReturn += dir._name + ": " + dir.subDirectories.Count + " " ;
-                }
+                var dirs = rootFolder.lstFiles.Where(x => x.getSerie() == ftpDir.PathOnServer && x.getSubFolder(1) == subdir).Select(y => y.getSubFolder(2)).Distinct().ToList();
+
+                toReturn += subdir + ": " + dirs.Count + " ";
+                //FTPDirectoryDirect dir = ftpDir.Descendants().Where(x => x._name.Equals(subdir)).FirstOrDefault();
+                //if (dir != null)
+                //{
+                //    toReturn += dir._name + ": " + dir.subDirectories.Count + " " ;
+                //}
             }
             toReturn += ")";
 
@@ -38,6 +44,20 @@ namespace AC_SRU_Sync
                 {
                     toReturn += " toSync: " + ftpDirsToSync.Where(x => !x.toAdd).Count();
                 }
+            }
+            if (ftpFilesToSync != null && ftpFilesToSync.Count > 0)
+            {
+                 toReturn += " toSync: " + ftpFilesToSync.Count + " Files ";
+                foreach (string subdir in ACHelper.getContentTypes())
+                {
+                    var lstSubFolders = ftpFilesToSync.Where(x => x.getSubFolder(1).Equals(subdir)).Select(y => y.getSubFolder(2)).Distinct().ToList();
+                    if (lstSubFolders.Count()>0)
+                    {
+                        toReturn += ", " + lstSubFolders.Count() + " " +subdir ;
+                    }
+                }
+                long size = ftpFilesToSync.Select(x=>x.SizeByte).Sum();
+                toReturn += " with Total Size of " + ACHelper.FormatBytes(size);
             }
             return toReturn;
         }

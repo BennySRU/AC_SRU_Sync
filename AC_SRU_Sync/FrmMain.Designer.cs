@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            this.lblExe = new System.Windows.Forms.Label();
+            this.lblACS = new System.Windows.Forms.Label();
             this.lblSRU = new System.Windows.Forms.Label();
             this.txtACEXE = new System.Windows.Forms.TextBox();
             this.btnCheck = new System.Windows.Forms.Button();
@@ -45,6 +45,7 @@
             this.tooly = new System.Windows.Forms.ToolTip(this.components);
             this.txtFTP = new System.Windows.Forms.TextBox();
             this.pnlTop = new System.Windows.Forms.Panel();
+            this.btnInfo = new System.Windows.Forms.Button();
             this.btnShowSettings = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbDeep = new System.Windows.Forms.NumericUpDown();
@@ -66,7 +67,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFTP = new System.Windows.Forms.Label();
-            this.btnInfo = new System.Windows.Forms.Button();
+            this.btnDirAC = new System.Windows.Forms.Button();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.pnlTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDeep)).BeginInit();
             this.pnlStatus.SuspendLayout();
@@ -77,15 +82,15 @@
             this.pnlFTP.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lblExe
+            // lblACS
             // 
-            this.lblExe.AutoSize = true;
-            this.lblExe.Location = new System.Drawing.Point(6, 38);
-            this.lblExe.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblExe.Name = "lblExe";
-            this.lblExe.Size = new System.Drawing.Size(67, 20);
-            this.lblExe.TabIndex = 0;
-            this.lblExe.Text = "AC.exe:";
+            this.lblACS.AutoSize = true;
+            this.lblACS.Location = new System.Drawing.Point(6, 38);
+            this.lblACS.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblACS.Name = "lblACS";
+            this.lblACS.Size = new System.Drawing.Size(41, 17);
+            this.lblACS.TabIndex = 0;
+            this.lblACS.Text = "Path:";
             // 
             // lblSRU
             // 
@@ -106,7 +111,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtACEXE.Location = new System.Drawing.Point(74, 35);
             this.txtACEXE.Name = "txtACEXE";
-            this.txtACEXE.Size = new System.Drawing.Size(354, 26);
+            this.txtACEXE.Size = new System.Drawing.Size(329, 23);
             this.txtACEXE.TabIndex = 4;
             // 
             // btnCheck
@@ -120,7 +125,7 @@
             this.btnCheck.Name = "btnCheck";
             this.btnCheck.Size = new System.Drawing.Size(216, 42);
             this.btnCheck.TabIndex = 7;
-            this.btnCheck.Text = "Check";
+            this.btnCheck.Text = "Check ";
             this.btnCheck.UseVisualStyleBackColor = true;
             this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
             // 
@@ -135,7 +140,7 @@
             this.btnSync.Name = "btnSync";
             this.btnSync.Size = new System.Drawing.Size(216, 42);
             this.btnSync.TabIndex = 8;
-            this.btnSync.Text = "Sync";
+            this.btnSync.Text = "Sync with Server";
             this.btnSync.UseVisualStyleBackColor = true;
             this.btnSync.Click += new System.EventHandler(this.btnSync_Click);
             // 
@@ -150,7 +155,7 @@
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(216, 42);
             this.btnStart.TabIndex = 9;
-            this.btnStart.Text = "Start";
+            this.btnStart.Text = "Start Assetto Corsa";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
@@ -203,7 +208,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFtpUser.Location = new System.Drawing.Point(93, 66);
             this.txtFtpUser.Name = "txtFtpUser";
-            this.txtFtpUser.Size = new System.Drawing.Size(333, 26);
+            this.txtFtpUser.Size = new System.Drawing.Size(333, 23);
             this.txtFtpUser.TabIndex = 14;
             this.tooly.SetToolTip(this.txtFtpUser, "User to connect (if empty will take anonymous)");
             // 
@@ -213,7 +218,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFtpPassword.Location = new System.Drawing.Point(93, 97);
             this.txtFtpPassword.Name = "txtFtpPassword";
-            this.txtFtpPassword.Size = new System.Drawing.Size(333, 26);
+            this.txtFtpPassword.Size = new System.Drawing.Size(333, 23);
             this.txtFtpPassword.TabIndex = 15;
             this.tooly.SetToolTip(this.txtFtpPassword, "password for the user");
             this.txtFtpPassword.UseSystemPasswordChar = true;
@@ -224,7 +229,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFTP.Location = new System.Drawing.Point(93, 35);
             this.txtFTP.Name = "txtFTP";
-            this.txtFTP.Size = new System.Drawing.Size(333, 26);
+            this.txtFTP.Size = new System.Drawing.Size(333, 23);
             this.txtFTP.TabIndex = 5;
             this.tooly.SetToolTip(this.txtFTP, "Path to ftp server without ftp://");
             // 
@@ -241,6 +246,21 @@
             this.pnlTop.Size = new System.Drawing.Size(888, 165);
             this.pnlTop.TabIndex = 18;
             this.tooly.SetToolTip(this.pnlTop, "Show Settings");
+            // 
+            // btnInfo
+            // 
+            this.btnInfo.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnInfo.FlatAppearance.BorderSize = 2;
+            this.btnInfo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
+            this.btnInfo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInfo.Location = new System.Drawing.Point(3, 0);
+            this.btnInfo.Name = "btnInfo";
+            this.btnInfo.Size = new System.Drawing.Size(30, 30);
+            this.btnInfo.TabIndex = 20;
+            this.btnInfo.Text = "i";
+            this.btnInfo.UseVisualStyleBackColor = true;
+            this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
             // 
             // btnShowSettings
             // 
@@ -271,7 +291,7 @@
             // 
             // cmbDeep
             // 
-            this.cmbDeep.Location = new System.Drawing.Point(74, 66);
+            this.cmbDeep.Location = new System.Drawing.Point(292, 6);
             this.cmbDeep.Maximum = new decimal(new int[] {
             10,
             0,
@@ -283,13 +303,14 @@
             0,
             0});
             this.cmbDeep.Name = "cmbDeep";
-            this.cmbDeep.Size = new System.Drawing.Size(84, 26);
+            this.cmbDeep.Size = new System.Drawing.Size(84, 23);
             this.cmbDeep.TabIndex = 16;
             this.cmbDeep.Value = new decimal(new int[] {
             7,
             0,
             0,
             0});
+            this.cmbDeep.Visible = false;
             // 
             // pnlStatus
             // 
@@ -339,6 +360,7 @@
             this.btnAllTogether.TabIndex = 10;
             this.btnAllTogether.Text = "Check + Sync + Start";
             this.btnAllTogether.UseVisualStyleBackColor = true;
+            this.btnAllTogether.Click += new System.EventHandler(this.btnAllTogether_Click);
             // 
             // pnlSettings
             // 
@@ -355,6 +377,11 @@
             // pnlLocal
             // 
             this.pnlLocal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.pnlLocal.Controls.Add(this.checkBox5);
+            this.pnlLocal.Controls.Add(this.checkBox6);
+            this.pnlLocal.Controls.Add(this.checkBox7);
+            this.pnlLocal.Controls.Add(this.checkBox8);
+            this.pnlLocal.Controls.Add(this.btnDirAC);
             this.pnlLocal.Controls.Add(this.checkBox4);
             this.pnlLocal.Controls.Add(this.checkBox3);
             this.pnlLocal.Controls.Add(this.checkBox2);
@@ -364,7 +391,7 @@
             this.pnlLocal.Controls.Add(this.label4);
             this.pnlLocal.Controls.Add(this.cmbDeep);
             this.pnlLocal.Controls.Add(this.txtACEXE);
-            this.pnlLocal.Controls.Add(this.lblExe);
+            this.pnlLocal.Controls.Add(this.lblACS);
             this.pnlLocal.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlLocal.Location = new System.Drawing.Point(446, 0);
             this.pnlLocal.Name = "pnlLocal";
@@ -374,9 +401,9 @@
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(349, 100);
+            this.checkBox4.Location = new System.Drawing.Point(349, 67);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(113, 24);
+            this.checkBox4.Size = new System.Drawing.Size(95, 21);
             this.checkBox4.TabIndex = 24;
             this.checkBox4.Text = "checkBox4";
             this.checkBox4.UseVisualStyleBackColor = true;
@@ -386,9 +413,9 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(258, 100);
+            this.checkBox3.Location = new System.Drawing.Point(258, 67);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(113, 24);
+            this.checkBox3.Size = new System.Drawing.Size(95, 21);
             this.checkBox3.TabIndex = 23;
             this.checkBox3.Text = "checkBox3";
             this.checkBox3.UseVisualStyleBackColor = true;
@@ -398,9 +425,9 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(165, 100);
+            this.checkBox2.Location = new System.Drawing.Point(165, 67);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(113, 24);
+            this.checkBox2.Size = new System.Drawing.Size(95, 21);
             this.checkBox2.TabIndex = 22;
             this.checkBox2.Text = "checkBox2";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -410,9 +437,9 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(74, 100);
+            this.checkBox1.Location = new System.Drawing.Point(74, 67);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(113, 24);
+            this.checkBox1.Size = new System.Drawing.Size(95, 21);
             this.checkBox1.TabIndex = 21;
             this.checkBox1.Text = "checkBox1";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -422,10 +449,10 @@
             // lblToSync
             // 
             this.lblToSync.AutoSize = true;
-            this.lblToSync.Location = new System.Drawing.Point(6, 100);
+            this.lblToSync.Location = new System.Drawing.Point(6, 67);
             this.lblToSync.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblToSync.Name = "lblToSync";
-            this.lblToSync.Size = new System.Drawing.Size(70, 20);
+            this.lblToSync.Size = new System.Drawing.Size(60, 17);
             this.lblToSync.TabIndex = 20;
             this.lblToSync.Text = "ToSync:";
             this.lblToSync.Visible = false;
@@ -433,12 +460,13 @@
             // lblDeep
             // 
             this.lblDeep.AutoSize = true;
-            this.lblDeep.Location = new System.Drawing.Point(6, 68);
+            this.lblDeep.Location = new System.Drawing.Point(192, 8);
             this.lblDeep.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDeep.Name = "lblDeep";
-            this.lblDeep.Size = new System.Drawing.Size(54, 20);
+            this.lblDeep.Size = new System.Drawing.Size(46, 17);
             this.lblDeep.TabIndex = 19;
             this.lblDeep.Text = "Deep:";
+            this.lblDeep.Visible = false;
             // 
             // label4
             // 
@@ -447,7 +475,7 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(6, 6);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(139, 22);
+            this.label4.Size = new System.Drawing.Size(119, 19);
             this.label4.TabIndex = 18;
             this.label4.Text = "Local-Settings:";
             // 
@@ -474,7 +502,7 @@
             this.lblFTPHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFTPHeader.Location = new System.Drawing.Point(6, 6);
             this.lblFTPHeader.Name = "lblFTPHeader";
-            this.lblFTPHeader.Size = new System.Drawing.Size(127, 22);
+            this.lblFTPHeader.Size = new System.Drawing.Size(109, 19);
             this.lblFTPHeader.TabIndex = 18;
             this.lblFTPHeader.Text = "FTP-Settings:";
             // 
@@ -484,7 +512,7 @@
             this.label3.Location = new System.Drawing.Point(4, 100);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(88, 20);
+            this.label3.Size = new System.Drawing.Size(73, 17);
             this.label3.TabIndex = 17;
             this.label3.Text = "Password:";
             // 
@@ -494,7 +522,7 @@
             this.label1.Location = new System.Drawing.Point(4, 68);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 20);
+            this.label1.Size = new System.Drawing.Size(42, 17);
             this.label1.TabIndex = 16;
             this.label1.Text = "User:";
             // 
@@ -504,28 +532,75 @@
             this.lblFTP.Location = new System.Drawing.Point(4, 38);
             this.lblFTP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFTP.Name = "lblFTP";
-            this.lblFTP.Size = new System.Drawing.Size(63, 20);
+            this.lblFTP.Size = new System.Drawing.Size(54, 17);
             this.lblFTP.TabIndex = 4;
             this.lblFTP.Text = "Server:";
             // 
-            // btnInfo
+            // btnDirAC
             // 
-            this.btnInfo.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
-            this.btnInfo.FlatAppearance.BorderSize = 2;
-            this.btnInfo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
-            this.btnInfo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
-            this.btnInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnInfo.Location = new System.Drawing.Point(3, 0);
-            this.btnInfo.Name = "btnInfo";
-            this.btnInfo.Size = new System.Drawing.Size(30, 30);
-            this.btnInfo.TabIndex = 20;
-            this.btnInfo.Text = "i";
-            this.btnInfo.UseVisualStyleBackColor = true;
-            this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
+            this.btnDirAC.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnDirAC.FlatAppearance.BorderSize = 2;
+            this.btnDirAC.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
+            this.btnDirAC.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnDirAC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDirAC.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDirAC.Location = new System.Drawing.Point(409, 35);
+            this.btnDirAC.Name = "btnDirAC";
+            this.btnDirAC.Size = new System.Drawing.Size(30, 23);
+            this.btnDirAC.TabIndex = 25;
+            this.btnDirAC.Text = "...";
+            this.tooly.SetToolTip(this.btnDirAC, "Path to AssettoCorsa.exe if the textfile is empty the path will be getten by stea" +
+        "m-Configuration");
+            this.btnDirAC.UseVisualStyleBackColor = true;
+            this.btnDirAC.Click += new System.EventHandler(this.btnDirAC_Click);
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(74, 94);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(95, 21);
+            this.checkBox5.TabIndex = 29;
+            this.checkBox5.Text = "checkBox5";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.Visible = false;
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Location = new System.Drawing.Point(165, 94);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(95, 21);
+            this.checkBox6.TabIndex = 28;
+            this.checkBox6.Text = "checkBox6";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox6.Visible = false;
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(258, 94);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(95, 21);
+            this.checkBox7.TabIndex = 27;
+            this.checkBox7.Text = "checkBox7";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.Visible = false;
+            // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Location = new System.Drawing.Point(347, 94);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(95, 21);
+            this.checkBox8.TabIndex = 26;
+            this.checkBox8.Text = "checkBox8";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.Visible = false;
             // 
             // FrmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(918, 638);
@@ -560,7 +635,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblExe;
+        private System.Windows.Forms.Label lblACS;
         private System.Windows.Forms.Label lblSRU;
         private System.Windows.Forms.TextBox txtACEXE;
         private System.Windows.Forms.Button btnCheck;
@@ -597,6 +672,11 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button btnInfo;
+        private System.Windows.Forms.Button btnDirAC;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.CheckBox checkBox8;
     }
 }
 

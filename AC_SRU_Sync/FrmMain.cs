@@ -11,6 +11,7 @@ using System.Net;
 using System.IO;
 using System.Net.FtpClient;
 using System.Runtime.InteropServices;
+using Microsoft.Win32;
 
 namespace AC_SRU_Sync
 {
@@ -21,7 +22,7 @@ namespace AC_SRU_Sync
         private SimpleAES simpleAES = new SimpleAES();
         private int deepToCheck = 7;
         private Dictionary<int, CheckBox> checkBoxes;
-        private bool isLoading=true;
+        private bool isLoading = true;
 
         //Attribute um das verschieben des Forms zu ermöglichen
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -43,10 +44,10 @@ namespace AC_SRU_Sync
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            if (AC_SRU_Sync.Properties.Settings.Default.DesktopLocationX>=0&&
-                AC_SRU_Sync.Properties.Settings.Default.DesktopLocationY >= 0 )
-            this.SetDesktopLocation(AC_SRU_Sync.Properties.Settings.Default.DesktopLocationX, AC_SRU_Sync.Properties.Settings.Default.DesktopLocationY);// = AC_SRU_Sync.Properties.Settings.Default.WindowPosition;
-            
+            if (AC_SRU_Sync.Properties.Settings.Default.DesktopLocationX >= 0 &&
+                AC_SRU_Sync.Properties.Settings.Default.DesktopLocationY >= 0)
+                this.SetDesktopLocation(AC_SRU_Sync.Properties.Settings.Default.DesktopLocationX, AC_SRU_Sync.Properties.Settings.Default.DesktopLocationY);// = AC_SRU_Sync.Properties.Settings.Default.WindowPosition;
+
         }
         private void FrmMain_MouseDown(object sender, MouseEventArgs e)
         {
@@ -99,12 +100,17 @@ namespace AC_SRU_Sync
             }
             cmbDeep.Value = deepToCheck;
             btnSync.Enabled = false;
+            btnStart.Enabled = false;
 
             checkBoxes = new Dictionary<int, CheckBox>();
             checkBoxes.Add(0, checkBox1);
             checkBoxes.Add(1, checkBox2);
             checkBoxes.Add(2, checkBox3);
             checkBoxes.Add(3, checkBox4);
+            checkBoxes.Add(4, checkBox5);
+            checkBoxes.Add(5, checkBox6);
+            checkBoxes.Add(6, checkBox7);
+            checkBoxes.Add(7, checkBox8);
             LoadMainDirsFromSettings();
             isLoading = false;
         }
@@ -117,7 +123,7 @@ namespace AC_SRU_Sync
             //Standardattribute speichern
             AC_SRU_Sync.Properties.Settings.Default.DesktopLocationX = this.DesktopLocation.X;
             AC_SRU_Sync.Properties.Settings.Default.DesktopLocationY = this.DesktopLocation.Y;
-            AC_SRU_Sync.Properties.Settings.Default.SettingsVisible=pnlSettings.Visible;
+            AC_SRU_Sync.Properties.Settings.Default.SettingsVisible = pnlSettings.Visible;
             AC_SRU_Sync.Properties.Settings.Default.Save();
 
             if (HasSettingsChanged())
@@ -132,7 +138,7 @@ namespace AC_SRU_Sync
                     return;
                 }
             }
-                this.Close();
+            this.Close();
         }
         private bool HasSettingsChanged()
         {
@@ -166,7 +172,7 @@ namespace AC_SRU_Sync
             AC_SRU_Sync.Properties.Settings.Default.deep = (int)cmbDeep.Value;
             AC_SRU_Sync.Properties.Settings.Default.Save();
         }
-        
+
         private void LoadMainDirsFromSettings()
         {
             string mainDir = AC_SRU_Sync.Properties.Settings.Default.MainDirectories;
@@ -194,10 +200,11 @@ namespace AC_SRU_Sync
         private void LoadMainDirsFromFoundDirs(List<MainDirectory> mainDirs)
         {
             string mainDir = AC_SRU_Sync.Properties.Settings.Default.MainDirectories;
-            string newDir = string.Join(";", mainDirs.Select(x => x.ftpDir._name));
+            string newDir = string.Join(";", mainDirs.Select(x => x.ftpDir.GetSeriesName()));
 
             //nur neu laden, wenn sich was verändert hat
-            if (!newDir.Equals(mainDir)){
+            if (!newDir.Equals(mainDir))
+            {
                 AC_SRU_Sync.Properties.Settings.Default.MainDirectories = newDir;
                 AC_SRU_Sync.Properties.Settings.Default.ToSync = "";
                 AC_SRU_Sync.Properties.Settings.Default.Save();
@@ -219,21 +226,27 @@ namespace AC_SRU_Sync
         }
         #endregion
         #region CheckBeforeSync
+        FTPDirectoryDirect rootDirDirect;
         FTPDirectory rootDir;
         List<MainDirectory> mainDirectories;
         private void btnCheck_Click(object sender, EventArgs e)
         {
+
             this.Cursor = Cursors.WaitCursor;
             this.pnlStatus.Visible = true;
             this.pnlProgress.Visible = true;
-            try {
+            try
+            {
+                //RSyncHelper.CreateSignatur(@"sruadmin@race.hoferr.ch:/srv/ftp/acsync/legends", @"C:\temp\test.txt");
+
+
                 CheckFTPANDLocalFolders();
-                if (mainDirectories.Count > 0)
-                {
-                    LoadMainDirsFromFoundDirs(mainDirectories);
-                }
+
             }
-            catch { }
+            catch (Exception ex)
+            {
+
+            }
             this.pnlProgress.Visible = false;
             this.Cursor = Cursors.Default;
 
@@ -245,7 +258,7 @@ namespace AC_SRU_Sync
             pgbar.Maximum = 5;
             pgbar.Step = 1;
             pgbar.Value = 1;
-            WriteLog("Check started at " + start.ToLongTimeString() + Environment.NewLine, false) ;
+            WriteLog("Check started at " + start.ToLongTimeString() + Environment.NewLine, false);
             if (checkFTPServer(txtFTP.Text) == false)
             {
                 WriteLog("Sorry, could not conect to FTP Server!");
@@ -253,8 +266,9 @@ namespace AC_SRU_Sync
                 return;
             }
             pgbar.Value = 2;
-            WriteLog("Successfull FTP Connection! Tree loaded with maxdeep of " + cmbDeep.Value.ToString("0") + " levels.");
-            WriteLog("Elapsed: " + (DateTime.Now - start).TotalSeconds.ToString("0.00") + " s" + Environment.NewLine);
+            long size = rootDir.lstFiles.Select(x => x.SizeByte).Sum();
+            WriteLog("Successfull FTP Connection! Content.txt loaded with " + rootDir.lstFiles.Count() + " Files with Total Size of " + ACHelper.FormatBytes(size));
+            //WriteLog("Elapsed: " + (DateTime.Now - start).TotalSeconds.ToString("0.00") + " s" + Environment.NewLine);
             start = DateTime.Now;
             if (CheckForContentFolders() == false)
             {
@@ -264,9 +278,9 @@ namespace AC_SRU_Sync
             }
 
             pgbar.Value = 3;
-            int maxDeep = mainDirectories[1].ftpDir.Descendants().OrderByDescending(x => x._deep).First()._deep;
-            WriteLog("Found Contentfolders: " + mainDirectories.Count + " with maxDeep of " + maxDeep );
-            WriteLog("Elapsed:" + (DateTime.Now - start).TotalSeconds.ToString("0.00") + "s" + Environment.NewLine);
+
+            WriteLog("Found Contentfolders: " + mainDirectories.Count + " ");
+            //WriteLog("Elapsed:" + (DateTime.Now - start).TotalSeconds.ToString("0.00") + "s" + Environment.NewLine);
             start = DateTime.Now;
             //Check AC Exe
             if (ACHelper.CheckLocalExeAndContentFolder(txtACEXE.Text) == false)
@@ -275,32 +289,42 @@ namespace AC_SRU_Sync
                 return;
             }
             pgbar.Value = 4;
-            WriteLog("Compare folders in FileSystem" );
+            WriteLog("Compare folders in FileSystem");
             bool canbeSyncd = false;
+            if (mainDirectories.Count > 0)
+            {
+                LoadMainDirsFromFoundDirs(mainDirectories);
+            }
+            btnSync.Enabled = false;
             foreach (MainDirectory mainDir in mainDirectories)
             {
-                mainDir.ftpDirsToSync = ACHelper.CheckLocalFolder(txtACEXE.Text, mainDir);
+                mainDir.ftpFilesToSync = ACHelper.CheckLocalFolder(txtACEXE.Text, rootDir, mainDir);
                 WriteLog("Subfolder " + mainDir.InfoString());
-                if (mainDir.ftpDirsToSync.Count > 0)
+                if (mainDir.ftpFilesToSync.Count > 0)
                 {
                     canbeSyncd = true;
                 }
-                btnSync.Enabled = canbeSyncd;
+
+                if (AC_SRU_Sync.Properties.Settings.Default.ToSync.Contains(mainDir.ftpDir.GetSeriesName()) && canbeSyncd)
+                {
+                    btnSync.Enabled = canbeSyncd;
+                }
             }
+            btnStart.Enabled = !btnSync.Enabled;
             pgbar.Value = 5;
-            WriteLog("Finished!!!" + Environment.NewLine + " Elapsed:" + (DateTime.Now - start).TotalSeconds.ToString("0.00") + "s" + Environment.NewLine );
+            WriteLog(Environment.NewLine + "Check Finished!!! " + (btnStart.Enabled ? "You are ready to Start Assetto Corsa!" : "Please Sync your Folders!"));
         }
 
         private Boolean checkFTPServer(string ftpServer)
         {
             try
             {
-                if (GetFTPHelper().CheckConnection()==false)
+                if (GetFTPHelper().CheckConnection() == false)
                 {
                     return false;
                 }
                 //Hier eventuell ohne user / Passwort
-                rootDir = GetFTPHelper().GetFTPHoleTree(txtFTP.Text, "","", (int)cmbDeep.Value,this);
+                rootDir = GetFTPHelper().GetFTPHoleTreeByContentTXT(txtFTP.Text, "", "", this);
                 return true;
             }
             catch (Exception ex)
@@ -323,9 +347,9 @@ namespace AC_SRU_Sync
         }
 
 
-        private void WriteLog(string text, bool nlAtEnd=true)
+        private void WriteLog(string text, bool nlAtEnd = true)
         {
-            lblStatus.Text = text.Replace(Environment.NewLine,"");
+            lblStatus.Text = text.Replace(Environment.NewLine, "");
             if (nlAtEnd)
             {
 
@@ -357,33 +381,51 @@ namespace AC_SRU_Sync
         private void SyncAllSelectedMainDirs()
         {
             DateTime start = DateTime.Now;
-            txtStatus.Text = "Sync started at " + start.ToLongTimeString() + Environment.NewLine + Environment.NewLine;
+            WriteLog(Environment.NewLine + "Sync started at " + start.ToLongTimeString() + Environment.NewLine);
+            List<MainDirectory> toSync = mainDirectories.Where(x => AC_SRU_Sync.Properties.Settings.Default.ToSync.Contains(x.ftpDir.GetSeriesName())).ToList();
+            long totalSizeLong = toSync.Select(x => x.ftpFilesToSync.Select(y => y.SizeByte).Sum()).Sum();
 
-            foreach (MainDirectory mainDir in mainDirectories)
+            double factor = totalSizeLong > Int32.MaxValue ? totalSizeLong / (double)Int32.MaxValue : 1;
+            int totalSize = Convert.ToInt32(totalSizeLong / factor);
+            int actSize = 0;
+
+            SetProgress(actSize, totalSize);
+            foreach (MainDirectory mainDir in toSync)
             {
-                if (AC_SRU_Sync.Properties.Settings.Default.ToSync.Contains(mainDir.ftpDir._name))
+                WriteLog("Sync Folder " + mainDir.ftpDir.GetSeriesName());
+                string curObject = "";
+                string curObjectType = "";
+                int i = 1;
+                foreach (FTPFile ftpFile in mainDir.ftpFilesToSync)
                 {
-                    WriteLog("Sync Folder " + mainDir.ftpDir._name);
-                    int i = 1;
-                    foreach (FTPDirectory ftpDir in mainDir.ftpDirsToSync)
+                    if (!curObject.Equals(ftpFile.getSubFolder(2)))
                     {
-                        WriteLog("Sync ObjectType " + ftpDir._parentDir._name + " Name: " + ftpDir._name + " " + (ftpDir.toAdd ? "add" : "sync"));
-                        GetFTPHelper().DownloadFolder(ftpDir, this,i, mainDir.ftpDirsToSync.Count);
-                        WriteLog("Elapsed :" + (DateTime.Now - start).TotalSeconds.ToString("0.00") + "s" + Environment.NewLine);
+                        if (!curObject.Equals(""))
+                        {
+                            WriteLog("Sync ObjectType " + curObjectType + " Name: " + curObject + " Elapsed :" + (DateTime.Now - start).TotalSeconds.ToString("0.00") + "s");
+                        }
                         start = DateTime.Now;
-                        i++;
+                        curObjectType = ftpFile.getSubFolder(1);
+                        curObject = ftpFile.getSubFolder(2);
+
                     }
+                    SetProgress(actSize, totalSize, ftpFile.LocalFullPath + " Size " + ACHelper.FormatBytes(ftpFile.SizeByte) + "        (" + ACHelper.FormatBytes(Convert.ToInt64(actSize * factor)) + " / " + ACHelper.FormatBytes(totalSizeLong) + ")");
+                    GetFTPHelper().DownloadFile(ftpFile);
+                    actSize += Convert.ToInt32(ftpFile.SizeByte / factor);
                 }
             }
             WriteLog(Environment.NewLine + "Sync finished!");
+            btnStart.Enabled = true;
+            btnSync.Enabled = false;
         }
 
-        public void SetProgress(int val, int max, string text="")
+        public void SetProgress(int val, int max, string text = "")
         {
             if (val > max) val = val % max;
             pgbar.Maximum = max;
             pgbar.Value = val;
-            if (!text.Equals("")){
+            if (!text.Equals(""))
+            {
                 lblStatus.Text = text;
             }
         }
@@ -391,11 +433,16 @@ namespace AC_SRU_Sync
         #region Start Assetto Corsa
         private void btnStart_Click(object sender, EventArgs e)
         {
+            StartAC();
+
+        }
+
+        private void StartAC()
+        {
             if (ACHelper.CheckLocalExeAndContentFolder(txtACEXE.Text) == true)
             {
                 System.Diagnostics.Process.Start(txtACEXE.Text);
             }
-
         }
         #endregion
 
@@ -406,9 +453,9 @@ namespace AC_SRU_Sync
 
         private void btnShowSettings_Click(object sender, EventArgs e)
         {
-            pnlSettings.Visible = !pnlSettings.Visible ;
-            btnShowSettings.Text = pnlSettings.Visible?"-":"+";
-            
+            pnlSettings.Visible = !pnlSettings.Visible;
+            btnShowSettings.Text = pnlSettings.Visible ? "-" : "+";
+
         }
 
         private void checkBox_CheckedChanged(object sender, EventArgs e)
@@ -421,6 +468,66 @@ namespace AC_SRU_Sync
         {
             FrmInfo frmInfo = new FrmInfo();
             frmInfo.ShowDialog();
+        }
+
+        private void btnDirAC_Click(object sender, EventArgs e)
+        {
+            string path = "";
+            if (txtACEXE.Text.Equals(""))
+            {
+                path = ACHelper.getACSFolder();
+            }
+            else
+            {
+                path = Path.GetFullPath(txtACEXE.Text);
+            }
+
+            OpenFileDialog openfile = new OpenFileDialog();
+            openfile.CheckFileExists = true;
+            openfile.FileName = "AssettoCorsa.exe";
+            openfile.InitialDirectory = path;
+            DialogResult dlgRes = openfile.ShowDialog();
+
+            if (dlgRes == DialogResult.OK)
+            {
+                if (File.Exists(openfile.FileName) && openfile.FileName.Contains("AssettoCorsa.exe"))
+                {
+                    this.txtACEXE.Text = openfile.FileName;
+                    SaveSettings();
+
+                }
+            }
+        }
+
+        private void btnAllTogether_Click(object sender, EventArgs e)
+        {
+
+            this.Cursor = Cursors.WaitCursor;
+            this.pnlStatus.Visible = true;
+            this.pnlProgress.Visible = true;
+            try
+            {
+                CheckFTPANDLocalFolders();
+                if (btnSync.Enabled)
+                {
+                    SyncAllSelectedMainDirs();
+                }
+                if (btnStart.Enabled)
+                {
+                    this.Cursor = Cursors.Default;
+                    this.pnlStatus.Visible = false;
+                    this.pnlProgress.Visible = false;
+                    StartAC();
+                }
+            }
+            catch(Exception ex)
+            {
+                WriteLog(ex.Message);
+            }
+            this.Cursor = Cursors.Default;
+            this.pnlStatus.Visible = false;
+            this.pnlProgress.Visible = false;
+
         }
     }
 }

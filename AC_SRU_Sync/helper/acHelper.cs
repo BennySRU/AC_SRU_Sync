@@ -12,58 +12,27 @@ namespace AC_SRU_Sync
         public  enum ContentTypes { cars, tracks}
         public static List<MainDirectory> checkFolderForMainFolders(FTPDirectory rootDir)
         {
-            List<MainDirectory> mainDirs = new List<MainDirectory>();
-            List<FTPDirectory> foundDir = rootDir.Descendants().Where(x => x._name.Equals("content")).ToList();
-            if (foundDir.Count > 0)
-            {
-                foreach (FTPDirectory ftpDir in foundDir)
-                {
-                    if (ftpDir.Descendants().Where(x => getContentTypes().Contains( x._name)).Count()>0){
-                        mainDirs.Add(new MainDirectory(ftpDir._parentDir));
-                    }
-                }
-            }
-            return mainDirs;
+            return rootDir.lstFiles.Select(x => x.getSerie()).Distinct().Select(y => new MainDirectory(new FTPDirectory( y),rootDir)).ToList();
         }
         public static List<string> getContentTypes()
         {
             return Enum.GetNames(typeof(ContentTypes)).ToList();
         }
 
-        public static List<FTPDirectory> CheckLocalFolder(string pathToExe, MainDirectory dirToCheck)
+        public static List<FTPFile> CheckLocalFolder(string pathToExe, FTPDirectory rootDir, MainDirectory dirToCheck)
         {
-            List<FTPDirectory> directoriesToSync = new List<FTPDirectory>();
+            List<FTPFile> filesToSync = new List<FTPFile>();
            string acPath = Path.GetDirectoryName(pathToExe);
-            //Erste Stufe Content / App
-            foreach (FTPDirectory dirDeep1 in dirToCheck.ftpDir.subDirectories)
-            {
-                //Zweite Stufe Tracks / Cars
-                foreach(FTPDirectory dirDeep2 in dirDeep1.subDirectories)
-                {
-                    //Dritte Stufe Inhalt
-                    foreach (FTPDirectory dirDeep3 in dirDeep2.subDirectories)
-                    {
-                        string path = Path.Combine(new string[] { acPath, dirDeep1._name, dirDeep2._name, dirDeep3._name });
-                        if (Directory.Exists(path)==false)
-                        {
-                            dirDeep3.toAdd = true;
-                            dirDeep3._localPath = path;
-                            directoriesToSync.Add(dirDeep3);
-                        }
-                        else
-                        {
-                            if (hasDiff(path, dirDeep3))
-                            {
-                                dirDeep3.toAdd = false;
-                                dirDeep3._localPath = path;
-                                directoriesToSync.Add(dirDeep3);
-                            }
-                        }
 
-                    }
+            foreach (FTPFile file in rootDir.lstFiles.Where(x => x.getSerie().Equals(dirToCheck.ftpDir.PathOnServer)).ToList()){
+                if (hasDiff(acPath,file))
+                {
+                    filesToSync.Add(file);
                 }
+
+
             }
-            return directoriesToSync;
+            return filesToSync;
         }
         /// <summary>
         /// Recursive scan of files an folders
@@ -72,9 +41,9 @@ namespace AC_SRU_Sync
         /// <param name="path"></param>
         /// <param name="toCheck"></param>
         /// <returns></returns>
-        public static Boolean hasDiff(string path, FTPDirectory toCheck)
+        public static Boolean hasDiff(string path, FTPDirectoryDirect toCheck)
         {
-            foreach (FTPFile ftpFile in toCheck.lstFiles)
+            foreach (FTPFileDirect ftpFile in toCheck.lstFiles)
             {
                 if (File.Exists(Path.Combine(path, ftpFile.ftpListItem.Name)))
                 {
@@ -89,7 +58,7 @@ namespace AC_SRU_Sync
                     return true;
                 }
             }
-            foreach (FTPDirectory ftpDir in toCheck.subDirectories)
+            foreach (FTPDirectoryDirect ftpDir in toCheck.subDirectories)
             {
                 if (hasDiff(Path.Combine(path, ftpDir._name), ftpDir))
                 {
@@ -97,6 +66,25 @@ namespace AC_SRU_Sync
                 }
             }
             return false;
+        }
+        public static Boolean hasDiff(string path, FTPFile toCheck)
+        {
+            toCheck.LocalFullPath = Path.Combine(path, toCheck.getPathForLocalWithContent());
+            if (File.Exists(toCheck.LocalFullPath))
+            {
+                long length =  new FileInfo(toCheck.LocalFullPath).Length;
+                toCheck.ExistsLocal = true;
+                if (length != toCheck.SizeByte)
+                {
+                    return true;
+                }
+                else { return false; }
+            }
+            else
+            {
+                return true;
+            }
+            
         }
         public static Boolean CheckLocalExeAndContentFolder(string pathToExe)
         {
@@ -112,5 +100,63 @@ namespace AC_SRU_Sync
                 return Directory.Exists(acPathContent);
             }
         }
+
+        public static string getACSFolder()
+        {
+            try
+            {
+                string steamFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFilesX86)
+                    + @"\Steam\steamapps\libraryfolders.vdf";
+                string folder = "";
+                if (File.Exists(steamFolder))
+                {
+                    string[] text = File.ReadAllLines(steamFolder);
+
+                    foreach (string line in text)
+                    {
+                        
+                        string[] splitty = line.Split('\t');
+                        int num = 0;
+                        if (splitty.Length > 1)
+                        {
+                            //Wenns mit einer Zahl beginnt
+                            if (int.TryParse(splitty[1].Replace("\"",""),out num))
+                            {
+                                folder = splitty.Last().Replace("\"", "");
+                                string acsfolder = folder.Replace("\\\\", "\\") + @"\steamapps\common\assettocorsa";
+                                if (Directory.Exists(acsfolder))
+                                {
+                                    return acsfolder;
+                                }
+                            }
+                        }
+                    }
+                    return "";
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            catch
+            {
+                return "";
+            }
+
+
+        }
+        public static string FormatBytes(long bytes)
+        {
+            string[] Suffix = { "B", "KB", "MB", "GB", "TB" };
+            int i;
+            double dblSByte = bytes;
+            for (i = 0; i < Suffix.Length && bytes >= 1024; i++, bytes /= 1024)
+            {
+                dblSByte = bytes / 1024.0;
+            }
+
+            return String.Format("{0:0.##} {1}", dblSByte, Suffix[i]);
+        }
+
     }
 }

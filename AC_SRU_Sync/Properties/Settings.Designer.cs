@@ -25,7 +25,7 @@ namespace AC_SRU_Sync.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("race.hoferr.ch")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ac.simracing-united.net")]
         public string ftpPath {
             get {
                 return ((string)(this["ftpPath"]));

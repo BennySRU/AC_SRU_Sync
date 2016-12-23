@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ftpPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">race.hoferr.ch</Value>
+      <Value Profile="(Default)">ac.simracing-united.net</Value>
     </Setting>
     <Setting Name="localPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
