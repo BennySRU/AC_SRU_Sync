@@ -105,6 +105,7 @@
             this.lblSRU.Size = new System.Drawing.Size(888, 90);
             this.lblSRU.TabIndex = 2;
             this.lblSRU.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblSRU.Click += new System.EventHandler(this.lblSRU_Click);
             // 
             // txtACEXE
             // 

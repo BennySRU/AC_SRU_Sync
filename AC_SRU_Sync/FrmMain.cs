@@ -534,5 +534,10 @@ namespace AC_SRU_Sync
             this.pnlProgress.Visible = false;
 
         }
+
+        private void lblSRU_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://simracing-united.net/");
+        }
     }
 }
