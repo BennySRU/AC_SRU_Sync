@@ -38,7 +38,7 @@ namespace AC_SRU_Sync
             InitializeComponent();
 
             LoadSettings();
-
+            
         }
 
 
@@ -82,6 +82,7 @@ namespace AC_SRU_Sync
         {
             txtFTP.Text = AC_SRU_Sync.Properties.Settings.Default.ftpPath;
             txtACEXE.Text = AC_SRU_Sync.Properties.Settings.Default.localPath;
+            if (txtACEXE.Text.Equals(""))txtACEXE.Text = ACHelper.getACSFolder() + @"\AssettoCorsa.exe";
             txtFtpUser.Text = AC_SRU_Sync.Properties.Settings.Default.ftpUser;
             pnlSettings.Visible = AC_SRU_Sync.Properties.Settings.Default.SettingsVisible;
             btnShowSettings.Text = pnlSettings.Visible ? "-" : "+";
@@ -226,7 +227,7 @@ namespace AC_SRU_Sync
         }
         #endregion
         #region CheckBeforeSync
-        FTPDirectoryDirect rootDirDirect;
+        //FTPDirectoryDirect rootDirDirect;
         FTPDirectory rootDir;
         List<MainDirectory> mainDirectories;
         private void btnCheck_Click(object sender, EventArgs e)
@@ -245,7 +246,7 @@ namespace AC_SRU_Sync
             }
             catch (Exception ex)
             {
-
+                WriteLog(ex.Message);
             }
             this.pnlProgress.Visible = false;
             this.Cursor = Cursors.Default;
@@ -349,7 +350,7 @@ namespace AC_SRU_Sync
 
         private void WriteLog(string text, bool nlAtEnd = true)
         {
-            lblStatus.Text = text.Replace(Environment.NewLine, "");
+            lblStatus1.Text = text.Replace(Environment.NewLine, "");
             if (nlAtEnd)
             {
 
@@ -389,27 +390,30 @@ namespace AC_SRU_Sync
             int totalSize = Convert.ToInt32(totalSizeLong / factor);
             int actSize = 0;
 
+            
             SetProgress(actSize, totalSize);
             foreach (MainDirectory mainDir in toSync)
             {
                 WriteLog("Sync Folder " + mainDir.ftpDir.GetSeriesName());
                 string curObject = "";
                 string curObjectType = "";
-                int i = 1;
                 foreach (FTPFile ftpFile in mainDir.ftpFilesToSync)
                 {
                     if (!curObject.Equals(ftpFile.getSubFolder(2)))
                     {
                         if (!curObject.Equals(""))
                         {
-                            WriteLog("Sync ObjectType " + curObjectType + " Name: " + curObject + " Elapsed :" + (DateTime.Now - start).TotalSeconds.ToString("0.00") + "s");
+                            WriteLog("Sync ObjectType " + curObjectType + " Name: " + curObject) ;
                         }
-                        start = DateTime.Now;
+                        //start = DateTime.Now;
                         curObjectType = ftpFile.getSubFolder(1);
                         curObject = ftpFile.getSubFolder(2);
 
                     }
-                    SetProgress(actSize, totalSize, ftpFile.LocalFullPath + " Size " + ACHelper.FormatBytes(ftpFile.SizeByte) + "        (" + ACHelper.FormatBytes(Convert.ToInt64(actSize * factor)) + " / " + ACHelper.FormatBytes(totalSizeLong) + ")");
+                    double seconds = actSize == 0 ? 0 : (totalSize /actSize * (DateTime.Now - start).TotalSeconds);
+
+                    string time = actSize==0?" ?" : string.Format("{0:00}:{1:00}:{2:00}", seconds / 3600, (seconds / 60) % 60, seconds % 60); 
+                    SetProgress(actSize, totalSize, ftpFile.FullPath + " Size " + ACHelper.FormatBytes(ftpFile.SizeByte) + "        (" + ACHelper.FormatBytes(Convert.ToInt64(actSize * factor)) + " / " + ACHelper.FormatBytes(totalSizeLong) + ")"," " + time);
                     GetFTPHelper().DownloadFile(ftpFile);
                     actSize += Convert.ToInt32(ftpFile.SizeByte / factor);
                 }
@@ -419,15 +423,16 @@ namespace AC_SRU_Sync
             btnSync.Enabled = false;
         }
 
-        public void SetProgress(int val, int max, string text = "")
+        public void SetProgress(int val, int max, string text = "", string additionalText = "")
         {
             if (val > max) val = val % max;
             pgbar.Maximum = max;
             pgbar.Value = val;
             if (!text.Equals(""))
             {
-                lblStatus.Text = text;
+                lblStatus1.Text = text;
             }
+            lblStatus2.Text = additionalText;
         }
         #endregion
         #region Start Assetto Corsa

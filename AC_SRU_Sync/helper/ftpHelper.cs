@@ -107,8 +107,6 @@ namespace AC_SRU_Sync
         {
             long size = 0;
             string path = "";
-            string dir = "";
-            string file = "";
             foreach (string line in content)
             {
                 string[] splitty = line.Split('\t');
@@ -118,7 +116,9 @@ namespace AC_SRU_Sync
                     {
                         path = splitty[1];
 
-                        if (path.Contains("content") && !path.Contains("content.txt"))
+                        if (path.Contains("content") 
+                            && !path.Contains("content.txt")
+                            )
                         {
                             //Create File
                             root.lstFiles.Add(new FTPFile(path, size));

@@ -25,6 +25,7 @@ namespace AC_SRU_Sync
         }
         public string getSubFolder(int stufe)
         {
+            if (FullPath.Split('/').Length <= stufe + 1) return "";
             return FullPath.Split('/')[stufe +1];
         }
         public string getPathForLocalWithContent()
