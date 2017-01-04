@@ -116,7 +116,7 @@ namespace AC_SRU_Sync
                     {
                         path = splitty[1];
 
-                        if (path.Contains("content") 
+                        if ((path.Contains("content") || path.Contains("apps"))
                             && !path.Contains("content.txt")
                             )
                         {
