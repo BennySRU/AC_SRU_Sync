@@ -10,12 +10,14 @@ namespace AC_SRU_Sync
     {
         public FTPDirectory ftpDir { get; set; }
         public List<FTPDirectory> ftpDirsToSync { get; set; }
+        public List<FTPFile> ftpFilesAlreadyDone { get; set; }
         public FTPDirectory rootFolder { get; set; }
         public List<FTPFile> ftpFilesToSync { get; set; }
         public MainDirectory(FTPDirectory dir, FTPDirectory root)
         {
             rootFolder = root;
             ftpDir = dir;
+            ftpFilesAlreadyDone = new List<FTPFile>();
         }
         public string InfoString()
         {

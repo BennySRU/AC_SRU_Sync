@@ -52,6 +52,7 @@
             this.cmbDeep = new System.Windows.Forms.NumericUpDown();
             this.pnlStatus = new System.Windows.Forms.Panel();
             this.pnlProgress = new System.Windows.Forms.Panel();
+            this.lblStatus2 = new System.Windows.Forms.Label();
             this.pnlButtons = new System.Windows.Forms.Panel();
             this.btnAllTogether = new System.Windows.Forms.Button();
             this.pnlSettings = new System.Windows.Forms.Panel();
@@ -72,7 +73,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFTP = new System.Windows.Forms.Label();
-            this.lblStatus2 = new System.Windows.Forms.Label();
+            this.btnMinimize = new System.Windows.Forms.Button();
             this.pnlTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDeep)).BeginInit();
             this.pnlStatus.SuspendLayout();
@@ -95,14 +96,15 @@
             // 
             // lblSRU
             // 
-            this.lblSRU.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblSRU.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblSRU.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblSRU.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSRU.Image = global::AC_SRU_Sync.Properties.Resources.SRU;
             this.lblSRU.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.lblSRU.Location = new System.Drawing.Point(0, 0);
+            this.lblSRU.Location = new System.Drawing.Point(213, 0);
             this.lblSRU.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSRU.Name = "lblSRU";
-            this.lblSRU.Size = new System.Drawing.Size(888, 90);
+            this.lblSRU.Size = new System.Drawing.Size(462, 90);
             this.lblSRU.TabIndex = 2;
             this.lblSRU.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.lblSRU.Click += new System.EventHandler(this.lblSRU_Click);
@@ -239,6 +241,7 @@
             // 
             // pnlTop
             // 
+            this.pnlTop.Controls.Add(this.btnMinimize);
             this.pnlTop.Controls.Add(this.btnInfo);
             this.pnlTop.Controls.Add(this.btnShowSettings);
             this.pnlTop.Controls.Add(this.label2);
@@ -250,6 +253,7 @@
             this.pnlTop.Size = new System.Drawing.Size(888, 165);
             this.pnlTop.TabIndex = 18;
             this.tooly.SetToolTip(this.pnlTop, "Show Settings");
+            this.pnlTop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmMain_MouseDown);
             // 
             // btnInfo
             // 
@@ -357,6 +361,16 @@
             this.pnlProgress.Size = new System.Drawing.Size(888, 43);
             this.pnlProgress.TabIndex = 13;
             this.pnlProgress.Visible = false;
+            // 
+            // lblStatus2
+            // 
+            this.lblStatus2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblStatus2.Location = new System.Drawing.Point(788, 23);
+            this.lblStatus2.Name = "lblStatus2";
+            this.lblStatus2.Size = new System.Drawing.Size(100, 20);
+            this.lblStatus2.TabIndex = 12;
+            this.lblStatus2.Text = "...";
+            this.lblStatus2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // pnlButtons
             // 
@@ -605,15 +619,20 @@
             this.lblFTP.TabIndex = 4;
             this.lblFTP.Text = "FTP-Server:";
             // 
-            // lblStatus2
+            // btnMinimize
             // 
-            this.lblStatus2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblStatus2.Location = new System.Drawing.Point(788, 23);
-            this.lblStatus2.Name = "lblStatus2";
-            this.lblStatus2.Size = new System.Drawing.Size(100, 20);
-            this.lblStatus2.TabIndex = 12;
-            this.lblStatus2.Text = "...";
-            this.lblStatus2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnMinimize.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnMinimize.FlatAppearance.BorderSize = 2;
+            this.btnMinimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
+            this.btnMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
+            this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMinimize.Location = new System.Drawing.Point(819, 0);
+            this.btnMinimize.Name = "btnMinimize";
+            this.btnMinimize.Size = new System.Drawing.Size(30, 30);
+            this.btnMinimize.TabIndex = 21;
+            this.btnMinimize.Text = "_";
+            this.btnMinimize.UseVisualStyleBackColor = true;
+            this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
             // 
             // FrmMain
             // 
@@ -695,6 +714,7 @@
         private System.Windows.Forms.CheckBox checkBox7;
         private System.Windows.Forms.CheckBox checkBox8;
         private System.Windows.Forms.Label lblStatus2;
+        private System.Windows.Forms.Button btnMinimize;
     }
 }
 

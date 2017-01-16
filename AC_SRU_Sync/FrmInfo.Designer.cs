@@ -153,7 +153,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(64, 20);
             this.label9.TabIndex = 9;
-            this.label9.Text = "0.1.1.5";
+            this.label9.Text = "1.0.0.3";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // FrmInfo
@@ -174,7 +174,7 @@
             this.Controls.Add(this.label1);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmInfo";
             this.ShowInTaskbar = false;
             this.Text = "Info";
