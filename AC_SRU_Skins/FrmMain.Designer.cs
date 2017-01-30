@@ -1,4 +1,4 @@
-﻿namespace AC_SRU_Sync
+﻿namespace AC_SRU_Skins
 {
     partial class FrmMain
     {
@@ -50,7 +50,6 @@
             this.btnShowSettings = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnDirAC = new System.Windows.Forms.Button();
-            this.cmbDeep = new System.Windows.Forms.NumericUpDown();
             this.pnlStatus = new System.Windows.Forms.Panel();
             this.pnlProgress = new System.Windows.Forms.Panel();
             this.lblStatus2 = new System.Windows.Forms.Label();
@@ -58,30 +57,21 @@
             this.btnAllTogether = new System.Windows.Forms.Button();
             this.pnlSettings = new System.Windows.Forms.Panel();
             this.pnlLocal = new System.Windows.Forms.Panel();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.lblToSync = new System.Windows.Forms.Label();
-            this.lblDeep = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.pnlFTP = new System.Windows.Forms.Panel();
             this.lblFTPHeader = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFTP = new System.Windows.Forms.Label();
-            this.btnSkins = new System.Windows.Forms.Button();
             this.pnlTop.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbDeep)).BeginInit();
             this.pnlStatus.SuspendLayout();
             this.pnlProgress.SuspendLayout();
             this.pnlButtons.SuspendLayout();
             this.pnlSettings.SuspendLayout();
             this.pnlLocal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.pnlFTP.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,9 +90,9 @@
             this.lblSRU.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblSRU.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblSRU.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSRU.Image = global::AC_SRU_Sync.Properties.Resources.SRU;
+            this.lblSRU.Image = global::AC_SRU_Skins.Properties.Resources.SRU;
             this.lblSRU.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.lblSRU.Location = new System.Drawing.Point(213, 0);
+            this.lblSRU.Location = new System.Drawing.Point(316, 0);
             this.lblSRU.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSRU.Name = "lblSRU";
             this.lblSRU.Size = new System.Drawing.Size(462, 90);
@@ -132,7 +122,6 @@
             this.btnCheck.TabIndex = 7;
             this.btnCheck.Text = "Check ";
             this.btnCheck.UseVisualStyleBackColor = true;
-            this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
             // 
             // btnSync
             // 
@@ -169,7 +158,7 @@
             this.lblStatus1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblStatus1.Location = new System.Drawing.Point(0, 23);
             this.lblStatus1.Name = "lblStatus1";
-            this.lblStatus1.Size = new System.Drawing.Size(788, 20);
+            this.lblStatus1.Size = new System.Drawing.Size(995, 20);
             this.lblStatus1.TabIndex = 10;
             this.lblStatus1.Text = "...";
             this.lblStatus1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -179,7 +168,7 @@
             this.pgbar.Dock = System.Windows.Forms.DockStyle.Top;
             this.pgbar.Location = new System.Drawing.Point(0, 5);
             this.pgbar.Name = "pgbar";
-            this.pgbar.Size = new System.Drawing.Size(888, 18);
+            this.pgbar.Size = new System.Drawing.Size(1095, 18);
             this.pgbar.TabIndex = 11;
             // 
             // txtStatus
@@ -189,17 +178,18 @@
             this.txtStatus.Multiline = true;
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtStatus.Size = new System.Drawing.Size(888, 310);
+            this.txtStatus.Size = new System.Drawing.Size(1095, 310);
             this.txtStatus.TabIndex = 12;
             // 
             // btnClose
             // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
             this.btnClose.FlatAppearance.BorderSize = 2;
             this.btnClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
             this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Location = new System.Drawing.Point(855, 0);
+            this.btnClose.Location = new System.Drawing.Point(1065, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(30, 30);
             this.btnClose.TabIndex = 13;
@@ -242,7 +232,6 @@
             // 
             // pnlTop
             // 
-            this.pnlTop.Controls.Add(this.btnSkins);
             this.pnlTop.Controls.Add(this.btnMinimize);
             this.pnlTop.Controls.Add(this.btnInfo);
             this.pnlTop.Controls.Add(this.btnShowSettings);
@@ -252,19 +241,20 @@
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(15, 15);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(888, 165);
+            this.pnlTop.Size = new System.Drawing.Size(1095, 165);
             this.pnlTop.TabIndex = 18;
             this.tooly.SetToolTip(this.pnlTop, "Show Settings");
             this.pnlTop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmMain_MouseDown);
             // 
             // btnMinimize
             // 
+            this.btnMinimize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMinimize.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
             this.btnMinimize.FlatAppearance.BorderSize = 2;
             this.btnMinimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
             this.btnMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
             this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMinimize.Location = new System.Drawing.Point(819, 0);
+            this.btnMinimize.Location = new System.Drawing.Point(1029, 0);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(30, 30);
             this.btnMinimize.TabIndex = 21;
@@ -304,14 +294,16 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label2.Location = new System.Drawing.Point(4, 95);
+            this.label2.Location = new System.Drawing.Point(0, 90);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(881, 49);
+            this.label2.Size = new System.Drawing.Size(1091, 49);
             this.label2.TabIndex = 18;
-            this.label2.Text = "ASSETTO CORSA SYNC CENTER ";
+            this.label2.Text = "ASSETTO CORSA SKIN CENTER ";
             this.label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // btnDirAC
@@ -332,29 +324,6 @@
             this.btnDirAC.UseVisualStyleBackColor = true;
             this.btnDirAC.Click += new System.EventHandler(this.btnDirAC_Click);
             // 
-            // cmbDeep
-            // 
-            this.cmbDeep.Location = new System.Drawing.Point(292, 6);
-            this.cmbDeep.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.cmbDeep.Minimum = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            this.cmbDeep.Name = "cmbDeep";
-            this.cmbDeep.Size = new System.Drawing.Size(84, 23);
-            this.cmbDeep.TabIndex = 16;
-            this.cmbDeep.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            this.cmbDeep.Visible = false;
-            // 
             // pnlStatus
             // 
             this.pnlStatus.Controls.Add(this.txtStatus);
@@ -362,7 +331,7 @@
             this.pnlStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlStatus.Location = new System.Drawing.Point(15, 441);
             this.pnlStatus.Name = "pnlStatus";
-            this.pnlStatus.Size = new System.Drawing.Size(888, 353);
+            this.pnlStatus.Size = new System.Drawing.Size(1095, 353);
             this.pnlStatus.TabIndex = 19;
             this.pnlStatus.Visible = false;
             // 
@@ -375,14 +344,14 @@
             this.pnlProgress.Location = new System.Drawing.Point(0, 310);
             this.pnlProgress.Name = "pnlProgress";
             this.pnlProgress.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.pnlProgress.Size = new System.Drawing.Size(888, 43);
+            this.pnlProgress.Size = new System.Drawing.Size(1095, 43);
             this.pnlProgress.TabIndex = 13;
             this.pnlProgress.Visible = false;
             // 
             // lblStatus2
             // 
             this.lblStatus2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblStatus2.Location = new System.Drawing.Point(788, 23);
+            this.lblStatus2.Location = new System.Drawing.Point(995, 23);
             this.lblStatus2.Name = "lblStatus2";
             this.lblStatus2.Size = new System.Drawing.Size(100, 20);
             this.lblStatus2.TabIndex = 12;
@@ -398,7 +367,7 @@
             this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlButtons.Location = new System.Drawing.Point(15, 387);
             this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.Size = new System.Drawing.Size(888, 54);
+            this.pnlButtons.Size = new System.Drawing.Size(1095, 54);
             this.pnlButtons.TabIndex = 20;
             // 
             // btnAllTogether
@@ -414,7 +383,6 @@
             this.btnAllTogether.TabIndex = 10;
             this.btnAllTogether.Text = "Check + Sync + Start";
             this.btnAllTogether.UseVisualStyleBackColor = true;
-            this.btnAllTogether.Click += new System.EventHandler(this.btnAllTogether_Click);
             // 
             // pnlSettings
             // 
@@ -423,7 +391,7 @@
             this.pnlSettings.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlSettings.Location = new System.Drawing.Point(15, 180);
             this.pnlSettings.Name = "pnlSettings";
-            this.pnlSettings.Size = new System.Drawing.Size(888, 207);
+            this.pnlSettings.Size = new System.Drawing.Size(1095, 207);
             this.pnlSettings.TabIndex = 20;
             this.pnlSettings.Visible = false;
             this.pnlSettings.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlSettings_Paint);
@@ -431,119 +399,22 @@
             // pnlLocal
             // 
             this.pnlLocal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.pnlLocal.Controls.Add(this.checkBox5);
-            this.pnlLocal.Controls.Add(this.checkBox6);
-            this.pnlLocal.Controls.Add(this.checkBox7);
-            this.pnlLocal.Controls.Add(this.checkBox8);
-            this.pnlLocal.Controls.Add(this.checkBox4);
-            this.pnlLocal.Controls.Add(this.checkBox3);
-            this.pnlLocal.Controls.Add(this.checkBox2);
-            this.pnlLocal.Controls.Add(this.checkBox1);
+            this.pnlLocal.Controls.Add(this.dataGridView1);
             this.pnlLocal.Controls.Add(this.lblToSync);
-            this.pnlLocal.Controls.Add(this.lblDeep);
             this.pnlLocal.Controls.Add(this.label4);
-            this.pnlLocal.Controls.Add(this.cmbDeep);
             this.pnlLocal.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlLocal.Location = new System.Drawing.Point(446, 0);
             this.pnlLocal.Name = "pnlLocal";
-            this.pnlLocal.Size = new System.Drawing.Size(442, 207);
+            this.pnlLocal.Size = new System.Drawing.Size(649, 207);
             this.pnlLocal.TabIndex = 19;
             // 
-            // checkBox5
+            // dataGridView1
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(74, 121);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(95, 21);
-            this.checkBox5.TabIndex = 29;
-            this.checkBox5.Text = "checkBox5";
-            this.checkBox5.UseVisualStyleBackColor = true;
-            this.checkBox5.Visible = false;
-            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
-            // 
-            // checkBox6
-            // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(74, 142);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(95, 21);
-            this.checkBox6.TabIndex = 28;
-            this.checkBox6.Text = "checkBox6";
-            this.checkBox6.UseVisualStyleBackColor = true;
-            this.checkBox6.Visible = false;
-            this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
-            // 
-            // checkBox7
-            // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(74, 163);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(95, 21);
-            this.checkBox7.TabIndex = 27;
-            this.checkBox7.Text = "checkBox7";
-            this.checkBox7.UseVisualStyleBackColor = true;
-            this.checkBox7.Visible = false;
-            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
-            // 
-            // checkBox8
-            // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(74, 184);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(95, 21);
-            this.checkBox8.TabIndex = 26;
-            this.checkBox8.Text = "checkBox8";
-            this.checkBox8.UseVisualStyleBackColor = true;
-            this.checkBox8.Visible = false;
-            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(74, 100);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(95, 21);
-            this.checkBox4.TabIndex = 24;
-            this.checkBox4.Text = "checkBox4";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            this.checkBox4.Visible = false;
-            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(74, 79);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(95, 21);
-            this.checkBox3.TabIndex = 23;
-            this.checkBox3.Text = "checkBox3";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.Visible = false;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(74, 58);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(95, 21);
-            this.checkBox2.TabIndex = 22;
-            this.checkBox2.Text = "checkBox2";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.Visible = false;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(74, 37);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(95, 21);
-            this.checkBox1.TabIndex = 21;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.Visible = false;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(72, 36);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(315, 170);
+            this.dataGridView1.TabIndex = 21;
             // 
             // lblToSync
             // 
@@ -556,17 +427,6 @@
             this.lblToSync.Text = "ToSync:";
             this.lblToSync.Visible = false;
             // 
-            // lblDeep
-            // 
-            this.lblDeep.AutoSize = true;
-            this.lblDeep.Location = new System.Drawing.Point(192, 8);
-            this.lblDeep.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblDeep.Name = "lblDeep";
-            this.lblDeep.Size = new System.Drawing.Size(46, 17);
-            this.lblDeep.TabIndex = 19;
-            this.lblDeep.Text = "Deep:";
-            this.lblDeep.Visible = false;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -574,9 +434,9 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(6, 6);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 19);
+            this.label4.Size = new System.Drawing.Size(48, 19);
             this.label4.TabIndex = 18;
-            this.label4.Text = "Series:";
+            this.label4.Text = "Cars:";
             // 
             // pnlFTP
             // 
@@ -640,28 +500,12 @@
             this.lblFTP.TabIndex = 4;
             this.lblFTP.Text = "FTP-Server:";
             // 
-            // btnSkins
-            // 
-            this.btnSkins.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
-            this.btnSkins.FlatAppearance.BorderSize = 2;
-            this.btnSkins.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
-            this.btnSkins.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(117)))), ((int)(((byte)(216)))));
-            this.btnSkins.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSkins.Location = new System.Drawing.Point(855, 130);
-            this.btnSkins.Name = "btnSkins";
-            this.btnSkins.Size = new System.Drawing.Size(30, 30);
-            this.btnSkins.TabIndex = 22;
-            this.btnSkins.Text = "*";
-            this.tooly.SetToolTip(this.btnSkins, "Open Skin Editor (experimental)");
-            this.btnSkins.UseVisualStyleBackColor = true;
-            this.btnSkins.Click += new System.EventHandler(this.btnSkins_Click);
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(918, 809);
+            this.ClientSize = new System.Drawing.Size(1125, 809);
             this.Controls.Add(this.pnlButtons);
             this.Controls.Add(this.pnlSettings);
             this.Controls.Add(this.pnlStatus);
@@ -677,7 +521,6 @@
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmMain_MouseDown);
             this.pnlTop.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.cmbDeep)).EndInit();
             this.pnlStatus.ResumeLayout(false);
             this.pnlStatus.PerformLayout();
             this.pnlProgress.ResumeLayout(false);
@@ -685,6 +528,7 @@
             this.pnlSettings.ResumeLayout(false);
             this.pnlLocal.ResumeLayout(false);
             this.pnlLocal.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.pnlFTP.ResumeLayout(false);
             this.pnlFTP.PerformLayout();
             this.ResumeLayout(false);
@@ -706,7 +550,6 @@
         private System.Windows.Forms.ToolTip tooly;
         private System.Windows.Forms.TextBox txtFtpUser;
         private System.Windows.Forms.TextBox txtFtpPassword;
-        private System.Windows.Forms.NumericUpDown cmbDeep;
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel pnlStatus;
@@ -719,25 +562,16 @@
         private System.Windows.Forms.Label lblFTPHeader;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel pnlLocal;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnShowSettings;
         private System.Windows.Forms.Button btnAllTogether;
-        private System.Windows.Forms.Label lblDeep;
-        private System.Windows.Forms.Label lblToSync;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button btnInfo;
         private System.Windows.Forms.Button btnDirAC;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.CheckBox checkBox6;
-        private System.Windows.Forms.CheckBox checkBox7;
-        private System.Windows.Forms.CheckBox checkBox8;
         private System.Windows.Forms.Label lblStatus2;
         private System.Windows.Forms.Button btnMinimize;
-        private System.Windows.Forms.Button btnSkins;
+        private System.Windows.Forms.Panel pnlLocal;
+        private System.Windows.Forms.Label lblToSync;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 

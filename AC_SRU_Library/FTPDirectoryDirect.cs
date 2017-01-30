@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AC_SRU_Sync
+namespace AC_SRU_Library
 {
     public class FTPDirectoryDirect
     {

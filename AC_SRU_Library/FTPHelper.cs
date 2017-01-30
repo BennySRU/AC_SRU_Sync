@@ -7,9 +7,8 @@ using System.Net.FtpClient;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace AC_SRU_Sync
+namespace AC_SRU_Library
 {
     public class FTPHelper
     {
@@ -58,7 +57,7 @@ namespace AC_SRU_Sync
                 return false;
             }
         }
-        public FTPDirectoryDirect GetFTPHoleTree(string path, string username = "", string password = "", int maxDeep = 100, FrmMain frmMain = null)
+        public FTPDirectoryDirect GetFTPHoleTree(string path, string username = "", string password = "", int maxDeep = 100)
         {
             FTPDirectoryDirect root = new FTPDirectoryDirect();
             root._name = path;
@@ -77,10 +76,10 @@ namespace AC_SRU_Sync
                 return null;
             }
             //Root Elemente befüllen
-            FillListItems(root, "", root._deep + 1, maxDeep, frmMain,1,10000);
+            FillListItems(root, "", root._deep + 1, maxDeep, 1, 10000);
             return root;
         }
-        public FTPDirectory GetFTPHoleTreeByContentTXT(string path, string username = "", string password = "", FrmMain frmMain = null)
+        public FTPDirectory GetFTPHoleTreeByContentTXT(string path, string username = "", string password = "")
         {
             FTPDirectory root = new FTPDirectory(path);
             if (!path.Equals(rootPath) || getFTPClient().IsConnected == false)
@@ -158,17 +157,42 @@ namespace AC_SRU_Sync
             return inhalt;
 
         }
-        public void FillListItems( FTPDirectoryDirect dirToAdd,string subfolder = "",int deep=0,int maxDeep=100,FrmMain frmMain=null,int progressVal=0,int progressMax=1000)
+        //public void FillListItems(FTPDirectoryDirect dirToAdd, string subfolder = "", int deep = 0, int maxDeep = 100, FrmMain frmMain = null, int progressVal = 0, int progressMax = 1000)
+        //{
+        //    List<FtpListItem> lstItems = getFTPClient().GetListing(subfolder).ToList();
+
+        //    foreach (FtpListItem ftpli in lstItems)
+        //    {
+        //        progressVal += 1;
+        //        if (frmMain != null) frmMain.SetProgress(progressVal, progressMax, "Found Folder " + ftpli.FullName + " (" + progressVal + ")");
+        //        if (ftpli.Type == FtpFileSystemObjectType.Directory)
+        //        {
+        //            FTPDirectoryDirect newDir = new FTPDirectoryDirect(ftpli.Name, ftpli.FullName, dirToAdd, dirToAdd._deep + 1);
+        //            if (newDir._deep <= maxDeep)
+        //            {
+        //                FillListItems(newDir, newDir._fullpath, newDir._deep, maxDeep);
+
+        //            }
+        //            dirToAdd.subDirectories.Add(newDir);
+        //        }
+        //        else
+        //        {
+        //            dirToAdd.lstFiles.Add(new FTPFileDirect(ftpli, dirToAdd));
+        //        }
+        //    }
+
+        //}
+        public void FillListItems(FTPDirectoryDirect dirToAdd, string subfolder = "", int deep = 0, int maxDeep = 100, int progressVal = 0, int progressMax = 1000)
         {
             List<FtpListItem> lstItems = getFTPClient().GetListing(subfolder).ToList();
-            
+
             foreach (FtpListItem ftpli in lstItems)
             {
                 progressVal += 1;
-                if (frmMain != null) frmMain.SetProgress(progressVal, progressMax, "Found Folder " + ftpli.FullName + " (" + progressVal + ")");
+                //if (frmMain != null) frmMain.SetProgress(progressVal, progressMax, "Found Folder " + ftpli.FullName + " (" + progressVal + ")");
                 if (ftpli.Type == FtpFileSystemObjectType.Directory)
                 {
-                    FTPDirectoryDirect newDir = new FTPDirectoryDirect(ftpli.Name, ftpli.FullName,dirToAdd,dirToAdd._deep+1);
+                    FTPDirectoryDirect newDir = new FTPDirectoryDirect(ftpli.Name, ftpli.FullName, dirToAdd, dirToAdd._deep + 1);
                     if (newDir._deep <= maxDeep)
                     {
                         FillListItems(newDir, newDir._fullpath, newDir._deep, maxDeep);
@@ -178,90 +202,90 @@ namespace AC_SRU_Sync
                 }
                 else
                 {
-                    dirToAdd.lstFiles.Add(new FTPFileDirect(ftpli,dirToAdd));
+                    dirToAdd.lstFiles.Add(new FTPFileDirect(ftpli, dirToAdd));
                 }
             }
-            
+
         }
-        public void DownloadFolder(FTPDirectoryDirect toSync, FrmMain frmMain,int curFolder,int maxFolder)
-        {
-            int curVal = curFolder * 3 + 1;
-            int maxVal = maxFolder * 3;
-            frmMain.SetProgress(curVal, maxVal,"Der Baum des Ordners(" + curFolder + "," + maxFolder +") wird noch einmal ganz durchsucht!");
-            FillListItems(toSync, toSync._fullpath, toSync._deep + 1);
-            //Verzeichnis erstellen
-            if (!Directory.Exists(toSync._localPath))
-            {
-                Directory.CreateDirectory(toSync._localPath);
-            }
-            int anzObjekte = toSync.Descendants().Count();
-            anzObjekte += toSync.Descendants().Select(x => x.lstFiles.Count).Sum();
+        //public void DownloadFolder(FTPDirectoryDirect toSync, FrmMain frmMain,int curFolder,int maxFolder)
+        //{
+        //    int curVal = curFolder * 3 + 1;
+        //    int maxVal = maxFolder * 3;
+        //    frmMain.SetProgress(curVal, maxVal,"Der Baum des Ordners(" + curFolder + "," + maxFolder +") wird noch einmal ganz durchsucht!");
+        //    FillListItems(toSync, toSync._fullpath, toSync._deep + 1);
+        //    //Verzeichnis erstellen
+        //    if (!Directory.Exists(toSync._localPath))
+        //    {
+        //        Directory.CreateDirectory(toSync._localPath);
+        //    }
+        //    int anzObjekte = toSync.Descendants().Count();
+        //    anzObjekte += toSync.Descendants().Select(x => x.lstFiles.Count).Sum();
 
-            curVal = curVal + 1;
-            frmMain.SetProgress(curVal, maxVal, "Ordner und Files werden angelegt! Anzahl Objekte:" + anzObjekte);
-            curVal = anzObjekte * curVal;
-            maxVal = anzObjekte *maxVal;
-            CreateAllFilesAndFolders(toSync,  frmMain,curVal,maxVal);
-        }
-        private void CreateAllFilesAndFolders(FTPDirectoryDirect ftpDir, FrmMain frmMain, int curVal, int maxVal)
-        {
-            foreach (FTPDirectoryDirect dir in ftpDir.subDirectories)
-            {
-                dir._localPath = Path.Combine(ftpDir._localPath, dir._name);
+        //    curVal = curVal + 1;
+        //    frmMain.SetProgress(curVal, maxVal, "Ordner und Files werden angelegt! Anzahl Objekte:" + anzObjekte);
+        //    curVal = anzObjekte * curVal;
+        //    maxVal = anzObjekte *maxVal;
+        //    CreateAllFilesAndFolders(toSync,  frmMain,curVal,maxVal);
+        //}
+        //private void CreateAllFilesAndFolders(FTPDirectoryDirect ftpDir, FrmMain frmMain, int curVal, int maxVal)
+        //{
+        //    foreach (FTPDirectoryDirect dir in ftpDir.subDirectories)
+        //    {
+        //        dir._localPath = Path.Combine(ftpDir._localPath, dir._name);
 
-                curVal++;
-                frmMain.SetProgress(curVal, maxVal, "Ordner " + dir._localPath + " wird überprüft!");
-                if (!Directory.Exists(dir._localPath))
-                {
+        //        curVal++;
+        //        frmMain.SetProgress(curVal, maxVal, "Ordner " + dir._localPath + " wird überprüft!");
+        //        if (!Directory.Exists(dir._localPath))
+        //        {
 
-                    Directory.CreateDirectory(dir._localPath);
-                }
-                CreateAllFilesAndFolders(dir, frmMain,curVal,maxVal);
-            }
-            foreach(FTPFileDirect file in ftpDir.lstFiles)
-            {
-                try {
-                    string destPath = Path.Combine(ftpDir._localPath, file.ftpListItem.Name);
-                    using (var ftpStream = getFTPClient().OpenRead(file.ftpListItem.FullName))
-                        if ((int)ftpStream.Length == 0)
-                        {
-                            if (!File.Exists(destPath))
-                            {
-                                System.IO.File.WriteAllLines(destPath, new string[0]);
-                            }
-                        }
-                        else {
-                            bool doOverwrite = true;
-                            if (File.Exists(destPath))
-                            {
-                                byte[] file1 = File.ReadAllBytes(destPath);
-                                if (file1.Length == file.ftpListItem.Size)
-                                {
-                                    doOverwrite = false;
-                                }
-                            }
-                            if (doOverwrite)
-                            {
-                                using (var fileStream = File.Create(destPath, (int)ftpStream.Length))
-                                {
-                                    var buffer = new byte[8 * 1024];
-                                    int count;
-                                    while ((count = ftpStream.Read(buffer, 0, buffer.Length)) > 0)
-                                    {
-                                        fileStream.Write(buffer, 0, count);
-                                    }
-                                }
-                                frmMain.SetProgress(curVal, maxVal, "File " + destPath + " wird angelegt!");
-                            }
-                        }
-                }
-                catch
-                {
+        //            Directory.CreateDirectory(dir._localPath);
+        //        }
+        //        CreateAllFilesAndFolders(dir, frmMain,curVal,maxVal);
+        //    }
+        //    foreach(FTPFileDirect file in ftpDir.lstFiles)
+        //    {
+        //        try {
+        //            string destPath = Path.Combine(ftpDir._localPath, file.ftpListItem.Name);
+        //            using (var ftpStream = getFTPClient().OpenRead(file.ftpListItem.FullName))
+        //                if ((int)ftpStream.Length == 0)
+        //                {
+        //                    if (!File.Exists(destPath))
+        //                    {
+        //                        System.IO.File.WriteAllLines(destPath, new string[0]);
+        //                    }
+        //                }
+        //                else {
+        //                    bool doOverwrite = true;
+        //                    if (File.Exists(destPath))
+        //                    {
+        //                        byte[] file1 = File.ReadAllBytes(destPath);
+        //                        if (file1.Length == file.ftpListItem.Size)
+        //                        {
+        //                            doOverwrite = false;
+        //                        }
+        //                    }
+        //                    if (doOverwrite)
+        //                    {
+        //                        using (var fileStream = File.Create(destPath, (int)ftpStream.Length))
+        //                        {
+        //                            var buffer = new byte[8 * 1024];
+        //                            int count;
+        //                            while ((count = ftpStream.Read(buffer, 0, buffer.Length)) > 0)
+        //                            {
+        //                                fileStream.Write(buffer, 0, count);
+        //                            }
+        //                        }
+        //                        frmMain.SetProgress(curVal, maxVal, "File " + destPath + " wird angelegt!");
+        //                    }
+        //                }
+        //        }
+        //        catch
+        //        {
 
-                }
-                curVal++;
-            }
-        }
+        //        }
+        //        curVal++;
+        //    }
+        //}
         public bool DownloadFile(FTPFile fily)
         {
 

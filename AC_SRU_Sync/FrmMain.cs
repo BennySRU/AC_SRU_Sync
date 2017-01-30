@@ -13,6 +13,7 @@ using System.Net.FtpClient;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
 using System.Threading;
+using AC_SRU_Library;
 
 namespace AC_SRU_Sync
 {
@@ -344,7 +345,7 @@ namespace AC_SRU_Sync
                     return false;
                 }
                 //Hier eventuell ohne user / Passwort
-                rootDir = GetFTPHelper().GetFTPHoleTreeByContentTXT(txtFTP.Text, "", "", this);
+                rootDir = GetFTPHelper().GetFTPHoleTreeByContentTXT(txtFTP.Text, "", "");
                 return true;
             }
             catch (Exception ex)
@@ -614,6 +615,11 @@ namespace AC_SRU_Sync
         private void btnMinimize_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnSkins_Click(object sender, EventArgs e)
+        {
+            AC_SRU_Skins.Program.StartWithSettings(this.DesktopLocation.X + this.Width, this.DesktopLocation.Y, txtFtpPassword.Text, txtFTP.Text, txtFtpUser.Text, txtACEXE.Text, true);
         }
     }
 }

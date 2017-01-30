@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AC_SRU_Sync", "AC_SRU_Sync\
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AC_SRU_Sync_Setup", "AC_SRU_Sync_Setup\AC_SRU_Sync_Setup.vdproj", "{0B4E460F-26E2-4B10-B65C-58757F205DAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AC_SRU_Skins", "AC_SRU_Skins\AC_SRU_Skins.csproj", "{185044AD-44E2-43EC-A199-8A040271C08A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AC_SRU_Library", "AC_SRU_Library\AC_SRU_Library.csproj", "{4A0DBEA8-B576-47E0-913E-5BAC8AA6AEDA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{0B4E460F-26E2-4B10-B65C-58757F205DAA}.Debug|Any CPU.Build.0 = Debug
 		{0B4E460F-26E2-4B10-B65C-58757F205DAA}.Release|Any CPU.ActiveCfg = Release
 		{0B4E460F-26E2-4B10-B65C-58757F205DAA}.Release|Any CPU.Build.0 = Release
+		{185044AD-44E2-43EC-A199-8A040271C08A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{185044AD-44E2-43EC-A199-8A040271C08A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{185044AD-44E2-43EC-A199-8A040271C08A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{185044AD-44E2-43EC-A199-8A040271C08A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A0DBEA8-B576-47E0-913E-5BAC8AA6AEDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A0DBEA8-B576-47E0-913E-5BAC8AA6AEDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A0DBEA8-B576-47E0-913E-5BAC8AA6AEDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A0DBEA8-B576-47E0-913E-5BAC8AA6AEDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
