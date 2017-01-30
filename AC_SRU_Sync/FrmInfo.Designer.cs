@@ -93,9 +93,9 @@
             this.label5.Location = new System.Drawing.Point(152, 218);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(165, 13);
+            this.label5.Size = new System.Drawing.Size(150, 13);
             this.label5.TabIndex = 5;
-            this.label5.Text = "2016 under GNU Licenence";
+            this.label5.Text = "2017 under GNU License";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label6
@@ -153,7 +153,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(64, 20);
             this.label9.TabIndex = 9;
-            this.label9.Text = "1.0.0.3";
+            this.label9.Text = "1.0.0.5";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // FrmInfo

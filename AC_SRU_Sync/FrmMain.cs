@@ -316,7 +316,6 @@ namespace AC_SRU_Sync
                 BeginInvoke(new Action(CheckSyncState), new object[] {});
                 return;
             }
-            bool canbeSyncd=false;
             btnSync.Enabled = false;
             if (mainDirectories != null)
             {
@@ -325,14 +324,10 @@ namespace AC_SRU_Sync
                     //WriteLog("Subfolder " + mainDir.InfoString());
                     if (mainDir.ftpFilesToSync != null)
                     {
-                        if (mainDir.ftpFilesToSync.Count > 0)
+                        if (AC_SRU_Sync.Properties.Settings.Default.ToSync.Contains(mainDir.ftpDir.GetSeriesName()) && mainDir.ftpFilesToSync.Count > 0)
                         {
-                            canbeSyncd = true;
+                            btnSync.Enabled = true;
                         }
-                    }
-                    if (AC_SRU_Sync.Properties.Settings.Default.ToSync.Contains(mainDir.ftpDir.GetSeriesName()) && canbeSyncd)
-                    {
-                        btnSync.Enabled = canbeSyncd;
                     }
                 }
                 btnStart.Enabled = !btnSync.Enabled;
